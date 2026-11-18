@@ -1,0 +1,224 @@
+/* ═════════════════════════════════════════════════════════════════════════════
+   PIZZERIA DA NINO AM EIGERPLATZ (BERN) · SCROLL-LINKED COLOR INTERPOLATION
+   Paleta oficial extraída de https://www.pizzeriadanino.ch/:
+     --red:              #E41F13  (Rojo Da Nino / Calibrado WCAG AA #D81E12 en lienzo rojo)
+     --black:            #1D1D1B  (Carbón Antracita / Horno de leña)
+     --background-color: #F4F4F4  (Papel Suizo / Alabastro de la carta original)
+     --white:            #FFFFFF
+     Firma gráfica:      Bordes horizontales arquitectónicos de 10px solid #E41F13
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Variables interpoladas en vivo por GSAP ScrollTrigger (ver ScrollOrchestrator) */
+  --canvas-bg: #d81e12;
+  --canvas-ink: #ffffff;
+  --canvas-ink-muted: rgba(255, 255, 255, 0.9);
+  --canvas-surface: rgba(255, 255, 255, 0.09);
+  --canvas-surface-strong: rgba(255, 255, 255, 0.16);
+  --canvas-border: rgba(255, 255, 255, 0.26);
+  --canvas-accent: #ffffff;
+  --canvas-btn-bg: #ffffff;
+  --canvas-btn-ink: #1d1d1b;
+
+  /* Paleta estática oficial de Pizzeria Da Nino */
+  --danino-red: #e41f13;
+  --danino-red-wcag: #d81e12;
+  --danino-black: #1d1d1b;
+  --danino-paper: #f4f4f4;
+  --danino-white: #ffffff;
+  --danino-rule: 10px solid #e41f13;
+
+  /* Compatibilidad con tokens heredados */
+  --palette-white: #ffffff;
+  --palette-blush: #f4f4f4;
+  --palette-red: #e41f13;
+  --palette-espresso: #1d1d1b;
+  --palette-black: #1d1d1b;
+
+  /* Tipografía oficial Da Nino ("Catalog") + fallback de alta precisión */
+  --font-display: "Catalog", var(--font-display-loaded), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: "Catalog", var(--font-sans-loaded), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-mono-loaded), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Escala tipográfica fluida */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: clamp(1.25rem, 1.05rem + 0.8vw, 1.65rem);
+  --fs-xl: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
+  --fs-2xl: clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  --fs-hero: clamp(2.75rem, 1.55rem + 4.9vw, 5.8rem);
+
+  /* Layout */
+  --container: 1280px;
+  --gutter: clamp(1.25rem, 0.8rem + 2.5vw, 3rem);
+  --header-h: 76px;
+
+  /* Radios & curvas */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-full: 999px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Lenis smooth scroll base compatibility */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--canvas-bg);
+  color: var(--canvas-ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+  border-top: 10px solid var(--danino-red);
+  border-bottom: 10px solid var(--danino-red);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* Grano cinematográfico sutil para textura editorial */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--canvas-ink);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Enlace "saltar al contenido" (visible solo al navegar con teclado) */
+.skip-link {
+  position: fixed;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 100;
+  padding: 0.7rem 1.1rem;
+  border-radius: var(--radius-full);
+  background: #1d1d1b;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  transform: translateY(-180%);
+  transition: transform 160ms var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-color: #ffffff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
