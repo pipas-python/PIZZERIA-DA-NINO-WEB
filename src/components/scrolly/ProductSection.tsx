@@ -9,7 +9,6 @@ import { CulinaryLayerArtwork } from "@/components/placeholders/CulinaryArtwork"
 import { addCartItem } from "@/lib/cart";
 import { DICTIONARIES, useLocale } from "@/lib/i18n";
 import { handleAnchorClick, useMagnetic } from "@/lib/interactions";
-import { scrollToTarget } from "@/lib/lenis";
 import { CanvasSequenceStage } from "./CanvasSequenceStage";
 import styles from "./ProductSection.module.css";
 
@@ -504,16 +503,6 @@ export function ProductSection({ product, isOpeningHero = false }: ProductSectio
 
   function getLayerLabel(layerId: string, fallback: string) {
     return tProduct.layers[layerId] ?? fallback;
-  }
-
-  function handlePreviewClick() {
-    window.dispatchEvent(
-      new CustomEvent("atelier:select-concept", {
-        detail: { conceptKey: product.key },
-      }),
-    );
-    scrollToTarget("#take-away-karte");
-    history.replaceState(null, "", "#take-away-karte");
   }
 
   function handleQuickAddBag() {
