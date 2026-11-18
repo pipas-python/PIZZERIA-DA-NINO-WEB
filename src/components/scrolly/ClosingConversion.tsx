@@ -23,10 +23,7 @@ export function ClosingConversion() {
   const [state, formAction, isPending] = useActionState(submitBriefAction, INITIAL_STATE);
   const [conceptKey, setConceptKey] = useState<ConceptKey>("dodici");
   const [dismissedSuccess, setDismissedSuccess] = useState(false);
-  const [vipName, setVipName] = useVipRestaurant();
-  const [vipBuilderOpen, setVipBuilderOpen] = useState(false);
-  const [vipDraft, setVipDraft] = useState<string | null>(null);
-  const [copiedLink, setCopiedLink] = useState(false);
+  const [vipName] = useVipRestaurant();
 
   const [locale] = useLocale();
   const dict = DICTIONARIES[locale];
@@ -34,7 +31,6 @@ export function ClosingConversion() {
 
   const { items: cartItems, totalChf, summaryString, clear } = useTakeAwayCart();
 
-  const effectiveVipDraft = vipDraft ?? vipName;
   const currentConceptLabel = tClosing.concepts[conceptKey];
 
   useEffect(() => {
@@ -91,18 +87,6 @@ export function ClosingConversion() {
     window.addEventListener("atelier:select-concept", onSelectConcept);
     return () => window.removeEventListener("atelier:select-concept", onSelectConcept);
   }, [tClosing.concepts]);
-
-  function handleApplyAndCopyVipLink(event: React.FormEvent) {
-    event.preventDefault();
-    const clean = effectiveVipDraft.trim();
-    setVipName(clean);
-    if (!clean) return;
-    const shareUrl = new URL(window.location.origin + window.location.pathname);
-    shareUrl.searchParams.set("para", clean);
-    navigator.clipboard?.writeText(shareUrl.toString()).catch(() => {});
-    setCopiedLink(true);
-    window.setTimeout(() => setCopiedLink(false), 2600);
-  }
 
   const showSuccess = state.status === "success" && state.submission && !dismissedSuccess;
 
@@ -384,9 +368,26 @@ export function ClosingConversion() {
 
               <div className={styles.directRow}>
                 <span>{tClosing.directPrompt}</span>
-                <a id="direct-phone-link" href="tel:+41313711131" className={styles.directLink}>
-                  {tClosing.directWhatsappLink}
-                </a>
+                <div className={styles.contactLinksRow}>
+                  <a
+                    id="direct-whatsapp-link"
+                    href={`${
+                      process.env.NEXT_PUBLIC_CONTACT_URL || "https://wa.me/41313711131"
+                    }?text=${encodeURIComponent(
+                      cartItems.length > 0
+                        ? `${tClosing.whatsappDefaultText} (${summaryString} — Total CHF ${totalChf.toFixed(2)})`
+                        : tClosing.whatsappDefaultText,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.directLink}
+                  >
+                    WhatsApp ↗
+                  </a>
+                  <a id="direct-phone-link" href="tel:+41313711131" className={styles.directLink}>
+                    {tClosing.directWhatsappLink}
+                  </a>
+                </div>
               </div>
             </form>
           )}
@@ -420,54 +421,8 @@ export function ClosingConversion() {
             >
               Impressum
             </a>
-            <button
-              id="vip-generator-toggle-btn"
-              type="button"
-              className={`mono ${styles.vipToggleBtn}`}
-              aria-expanded={vipBuilderOpen}
-              onClick={() => setVipBuilderOpen((prev) => !prev)}
-            >
-              {vipName ? tClosing.vipToggleActive(vipName) : tClosing.vipToggleIdle}
-            </button>
           </div>
         </div>
-
-        {vipBuilderOpen && (
-          <form
-            id="vip-generator-form"
-            className={styles.vipBuilderBar}
-            onSubmit={handleApplyAndCopyVipLink}
-          >
-            <label htmlFor="vip-generator-input" className="mono">
-              {tClosing.vipBuilderLabel}
-            </label>
-            <input
-              id="vip-generator-input"
-              type="text"
-              maxLength={48}
-              placeholder={tClosing.vipBuilderPlaceholder}
-              value={effectiveVipDraft}
-              onChange={(e) => setVipDraft(e.target.value)}
-              className={styles.vipBuilderInput}
-            />
-            <button id="vip-generator-copy-btn" type="submit" className={styles.vipBuilderSubmit}>
-              {copiedLink ? tClosing.vipBuilderCopied : tClosing.vipBuilderSubmit}
-            </button>
-            {vipName && (
-              <button
-                id="vip-generator-clear-btn"
-                type="button"
-                className={styles.vipBuilderClear}
-                onClick={() => {
-                  setVipDraft("");
-                  setVipName("");
-                }}
-              >
-                {tClosing.vipBuilderClear}
-              </button>
-            )}
-          </form>
-        )}
       </footer>
     </section>
   );

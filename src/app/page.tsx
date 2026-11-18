@@ -4,6 +4,7 @@ import { AmbientCanvasStage } from "@/components/scrolly/AmbientCanvasStage";
 import { ClosingConversion } from "@/components/scrolly/ClosingConversion";
 import { ProductSection } from "@/components/scrolly/ProductSection";
 import { ScrollOrchestrator } from "@/components/scrolly/ScrollOrchestrator";
+import { DaNinoConversionSections } from "@/components/sections/DaNinoConversionSections";
 import { PRODUCTS_SHOWCASE } from "@/config/products";
 
 const structuredData = {
@@ -16,7 +17,7 @@ const structuredData = {
   telephone: "+41 31 371 11 31",
   email: "info@pizzeriadanino.ch",
   servesCuisine: ["Italian", "Pizza", "Aperitivo"],
-  priceRange: "CHF 13.00 - CHF 22.00",
+  priceRange: "CHF 5.00 - CHF 23.00",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Belpstrasse 65",
@@ -61,6 +62,7 @@ export default function HomePage() {
           />
         ))}
         <InteractiveMenuSection />
+        <DaNinoConversionSections />
         <ClosingConversion />
       </main>
     </ScrollOrchestrator>

@@ -604,20 +604,25 @@ export function ProductSection({ product, isOpeningHero = false }: ProductSectio
       </div>
 
       <div className={`container ${styles.viewport}`}>
-        {/* HUD de fase con micro-barra de progreso */}
-        <div className={styles.phaseHud} aria-hidden="true">
-          <div className={styles.phaseLeft}>
+        {/* HUD de fase con micro-barra de progreso y anuncio accesible aria-live */}
+        <div className={styles.phaseHud}>
+          <div className={styles.phaseLeft} aria-hidden="true">
             <span className={`mono ${styles.phaseIndex}`}>{product.indexLabel} / 03</span>
             <span className={styles.phaseMeter}>
               <span ref={phaseBarRef} className={styles.phaseMeterFill} />
             </span>
           </div>
-          <span ref={phaseLabelRef} className={`mono ${styles.phaseLabel}`}>
+          <span
+            ref={phaseLabelRef}
+            className={`mono ${styles.phaseLabel}`}
+            aria-live="polite"
+            aria-atomic="true"
+          >
             {dict.scrolly.phases.p1}
           </span>
         </div>
 
-        {/* Columna izquierda interactiva: titular + 1 frase + controles en vivo (Rayos X y PDF vs 60 FPS) */}
+        {/* Columna izquierda interactiva: titular + 1 frase + controles de inspección de ingredientes */}
         <div ref={copyColRef} className={styles.copyCol}>
           <span data-scrolly-copy className={`mono ${styles.eyebrow}`}>
             {tProduct.eyebrow}
@@ -636,7 +641,7 @@ export function ProductSection({ product, isOpeningHero = false }: ProductSectio
             {tProduct.subtitle}
           </p>
 
-          {/* Controles interactivos de retención: Rayos X de capas + Comparador Carta PDF vs 60 FPS */}
+          {/* Controles interactivos del plato: Rayos X de 5 capas + Ficha de Receta Steinofen */}
           <div data-scrolly-copy className={styles.labControlsRow}>
             <button
               id={`xray-toggle-${product.key}`}
@@ -703,13 +708,13 @@ export function ProductSection({ product, isOpeningHero = false }: ProductSectio
               type="button"
               data-scrolly-copy
               className={styles.uiPreviewCard}
-              onClick={handlePreviewClick}
+              onClick={toggleXrayMode}
               aria-label={`${dict.scrolly.previewAriaPrefix} ${tProduct.uiMockupLabel}: ${tProduct.metricValue} ${tProduct.metricLabel}`}
             >
               <span className={styles.uiPreviewThumbWrap}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={product.generativeVisuals.uiMockupSrc}
+                  src={product.layers[0]?.imageSrc ?? product.generativeVisuals.uiMockupSrc}
                   alt=""
                   width={225}
                   height={160}
@@ -720,10 +725,12 @@ export function ProductSection({ product, isOpeningHero = false }: ProductSectio
               </span>
               <span className={styles.uiPreviewMeta}>
                 <span className={`mono ${styles.uiPreviewBadge}`}>
-                  {tProduct.uiMockupLabel} ↗
+                  {product.ovenSpec} · {product.layers.length} CAPAS ↗
                 </span>
                 <span className={styles.metricValue}>{tProduct.metricValue}</span>
-                <span className={styles.metricLabel}>{tProduct.metricLabel}</span>
+                <span className={styles.metricLabel}>
+                  {product.fermentationSpec} · {tProduct.metricLabel}
+                </span>
               </span>
             </button>
           )}
