@@ -11,7 +11,7 @@ const structuredData = {
   "@type": "Restaurant",
   name: "Pizzeria da Nino",
   description:
-    "Pizzeria da Nino am Eigerplatz (Belpstrasse 65, 3007 Bern). Pizzería · Consumo en el lugar y Retiros en la puerta.",
+    "Pizzeria da Nino am Eigerplatz (Belpstrasse 65, 3007 Bern). Pizzeria · Speisen vor Ort & Abholung vor dem Laden.",
   url: "https://www.pizzeriadanino.ch/",
   telephone: "+41 31 371 11 31",
   email: "info@pizzeriadanino.ch",

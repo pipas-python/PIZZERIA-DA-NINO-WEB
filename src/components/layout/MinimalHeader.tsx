@@ -8,8 +8,9 @@ import { getLenis, scrollToTarget } from "@/lib/lenis";
 import styles from "./MinimalHeader.module.css";
 
 const LOCALES: { code: Locale; label: string; name: string }[] = [
-  { code: "es", label: "ES", name: "Español" },
   { code: "de", label: "DE", name: "Deutsch" },
+  { code: "it", label: "IT", name: "Italiano" },
+  { code: "fr", label: "FR", name: "Français" },
   { code: "en", label: "EN", name: "English" },
 ];
 
