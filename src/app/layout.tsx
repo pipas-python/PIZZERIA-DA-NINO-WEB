@@ -25,18 +25,18 @@ export const metadata: Metadata = {
   metadataBase: resolveMetadataBase(),
   title: "Pizzeria da Nino · Belpstrasse 65, 3007 Bern | Pizza & Take Away",
   description:
-    "Pizzeria da Nino am Eigerplatz (Belpstrasse 65, 3007 Bern). ★ 4,8 (1.649 reseñas) · Fr. 20–30 · Consumo en el lugar y Take Away. Abierto hasta las 22:30.",
+    "Pizzeria da Nino am Eigerplatz (Belpstrasse 65, 3007 Bern). ★ 4,8 (1.649 Rezensionen) · Fr. 20–30 · Speisen vor Ort & Take Away. Geöffnet bis 22:30 Uhr.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
-    locale: "es_ES",
+    locale: "de_CH",
     url: "https://www.pizzeriadanino.ch/",
     siteName: "Pizzeria da Nino Bern",
     title: "Pizzeria da Nino · Belpstrasse 65, 3007 Bern",
     description:
-      "Pizzas artesanas al horno de piedra, Menu oficial en CHF, Location en Belpstrasse 65 y 4,8 ★ (1.649 reseñas).",
+      "Handwerkliche Steinofen-Pizze, offizielle Speisekarte in CHF, Location an der Belpstrasse 65 und ★ 4,8 (1.649 Rezensionen).",
   },
   twitter: {
     card: "summary_large_image",
@@ -51,11 +51,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="de">
       <body>
         <DaNinoSvgSprite />
         <a id="skip-to-main" href="#home" className="skip-link">
-          Saltar al contenido
+          Zum Inhalt springen
         </a>
         {children}
       </body>

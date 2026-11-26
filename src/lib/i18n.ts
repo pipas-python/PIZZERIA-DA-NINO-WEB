@@ -4,14 +4,14 @@ import { useCallback, useEffect, useSyncExternalStore } from "react";
 import type { MenuCategoryId } from "@/config/menu";
 import type { PizzaLayerSpec } from "@/config/products";
 
-export type Locale = "de" | "en" | "es";
+export type Locale = "de" | "it" | "fr" | "en";
 
 const LOCALE_EVENT = "danino:locale-change";
 const STORAGE_KEY = "danino_locale";
-const DEFAULT_LOCALE: Locale = "es";
+const DEFAULT_LOCALE: Locale = "de";
 
 export function isValidLocale(val: string | null | undefined): val is Locale {
-  return val === "de" || val === "en" || val === "es";
+  return val === "de" || val === "it" || val === "fr" || val === "en";
 }
 
 let clientLocaleCache: Locale = DEFAULT_LOCALE;
@@ -183,122 +183,6 @@ export interface UiDictionary {
 }
 
 export const DICTIONARIES: Record<Locale, UiDictionary> = {
-  es: {
-    skipToMain: "Saltar al contenido",
-    header: {
-      brandAria: "Pizzeria Da Nino Bern — Inicio",
-      navAria: "Navegación principal",
-      mobileNavAria: "Navegación móvil",
-      openMenuAria: "Abrir menú",
-      closeMenuAria: "Cerrar menú",
-      langGroupAria: "Idioma",
-      nav: {
-        home: "Home",
-        menu: "Menu",
-        location: "Location",
-        reviews: "Reviews",
-      },
-    },
-    hero: {
-      metaLine: "Pizzería · Belpstrasse 65, Bern · ★ 4,8 (1.649)",
-      scrollCue: "Scroll",
-      pizzaEyebrow: "450 °C HORNO DE PIEDRA · 72H FERMENTACIÓN",
-      pizzaTitle: "4 Stagioni.",
-      pizzaIngredients: "Pelati · Fior di Latte · Setas · Alcachofas · Aceitunas · Salami · Albahaca",
-      pizzaNote: "Masa fina y crujiente · Klein -CHF 2.00",
-      pizzaCta: "Ver Menu",
-      layers: {
-        basil: "Albahaca & Aceite de Oliva",
-        toppings: "Setas, Alcachofas, Aceitunas & Salami",
-        mozzarella: "Mozzarella Fior di Latte",
-        pelati: "Pelati San Marzano",
-        crust: "Masa Napolitana 72h",
-      },
-    },
-    menuSection: {
-      specialHeading: "Pizza-Special",
-      eyebrow: "CARTA OFICIAL · PRECIOS EN CHF",
-      title: "Menu.",
-      priceRangeNote: "Fr. 20–30 por persona · Consumo en el lugar & Retiros en la puerta",
-      categories: {
-        pizze: "Pizze",
-        antipasti_dolci: "Antipasti & Dolci",
-        aperitivo: "Aperitivo",
-        birra_vino: "Birra & Vino",
-        bibite_caffe: "Bibite & Cafe",
-      },
-      filters: {
-        all: "Todas",
-        vegetarian: "Vegetariana",
-        vegan: "Vegana",
-        meat: "Carne",
-        fish: "Pescado",
-      },
-      legend: {
-        vegetarian: "Vegetariano",
-        vegan: "Vegano",
-        pork: "Cerdo",
-        cow: "Vacuno",
-        fish: "Pescado",
-        taxNote: "Todas las pizzas disponibles en tamaño pequeño (-CHF 2.00) · Precios en CHF IVA incl.",
-      },
-    },
-    locationSection: {
-      eyebrow: "LOCATION · AM EIGERPLATZ",
-      title: "Belpstrasse 65.",
-      statusOpen: "Abierto",
-      closesAt: "Cierra a las 10:30 p. m.",
-      addressStreet: "Belpstrasse 65",
-      addressCity: "3007 Bern, Suiza",
-      plusCode: "WCRJ+RH Berna, Suiza",
-      services: ["Consumo en el lugar", "Retiros en la puerta", "Terraza interior y exterior"],
-      priceLabel: "Precio medio",
-      priceValue: "Fr. 20–30",
-      priceReported: "por persona · Notificado por 149 personas",
-      hoursLabel: "Horario",
-      hoursDays: "Lunes – Viernes",
-      hoursTime: "11:30 – 22:30",
-      peakTitle: "Horas punta · Jueves",
-      peakLive: "Menos concurrido de lo habitual",
-      directionsCta: "Cómo llegar",
-      callCta: "+41 31 371 11 31",
-    },
-    reviewsSection: {
-      eyebrow: "RESEÑAS DE GOOGLE MAPS",
-      ratingScore: "4,8",
-      totalCount: "1.649 reseñas",
-      priceSummary: "Pizzería · Fr. 20–30",
-      tags: ["italiana · 30", "vegana · 16", "pizza napolitana · 14", "perfecto · 14"],
-      googleCta: "Ver en Google Maps",
-      items: [
-        {
-          author: "Cosi Raitmayr",
-          meta: "Local Guide · 256 reseñas · 146 fotos",
-          timeAgo: "Hace 3 meses",
-          quote:
-            "Amazing Pizzaria!! We got the pizza special, the siciliano and 4 stazione - each was insanely delicious. The staff was super friendly and attentive AND helpful. There is indoor and outdoor seating available as well. We also enjoyed the kombucha and mate drinks. Will definitely come back!",
-          tag: "Pizza Special · Siciliana · 4 Stagioni",
-        },
-        {
-          author: "AS SAWA",
-          meta: "Local Guide · 512 reseñas · 11.968 fotos",
-          timeAgo: "Hace 2 meses",
-          quote:
-            "I ordered the signature one I think, the 4 stagioni, I love the level of dough. It is thin and crust.",
-          tag: "4 Stagioni · Thin Crust",
-        },
-        {
-          author: "Tim bird",
-          meta: "Local Guide · 136 reseñas · 125 fotos",
-          timeAgo: "Hace 2 meses",
-          quote:
-            "We loved our visit to this place! Was busy even on a Monday and from the taste of the pizza I can see why! The pizza tasted great and was reasonably priced!",
-          tag: "Dine-in · Bern",
-        },
-      ],
-      footerTagline: "Pizzeria Da Nino · Belpstrasse 65, 3007 Bern · Klein aber fein",
-    },
-  },
   de: {
     skipToMain: "Zum Inhalt springen",
     header: {
@@ -335,7 +219,7 @@ export const DICTIONARIES: Record<Locale, UiDictionary> = {
       specialHeading: "Pizza-Special",
       eyebrow: "SPEISEKARTE · PREISE IN CHF",
       title: "Menu.",
-      priceRangeNote: "Fr. 20–30 pro Person · Vor Ort essen & Abholung vor dem Laden",
+      priceRangeNote: "Fr. 20–30 pro Person · Speisen vor Ort & Abholung vor dem Laden",
       categories: {
         pizze: "Pizze",
         antipasti_dolci: "Antipasti & Dolci",
@@ -413,6 +297,238 @@ export const DICTIONARIES: Record<Locale, UiDictionary> = {
         },
       ],
       footerTagline: "Pizzeria Da Nino · Belpstrasse 65, 3007 Bern · Klein aber fein",
+    },
+  },
+  it: {
+    skipToMain: "Vai al contenuto",
+    header: {
+      brandAria: "Pizzeria Da Nino Berna — Inizio",
+      navAria: "Navigazione principale",
+      mobileNavAria: "Navigazione mobile",
+      openMenuAria: "Apri menu",
+      closeMenuAria: "Chiudi menu",
+      langGroupAria: "Lingua",
+      nav: {
+        home: "Home",
+        menu: "Menu",
+        location: "Location",
+        reviews: "Reviews",
+      },
+    },
+    hero: {
+      metaLine: "Pizzeria · Belpstrasse 65, Berna · ★ 4,8 (1.649)",
+      scrollCue: "Scorri",
+      pizzaEyebrow: "FORNO A PIETRA 450 °C · LIEVITAZIONE 72 ORE",
+      pizzaTitle: "4 Stagioni.",
+      pizzaIngredients: "Pelati · Fior di Latte · Funghi · Carciofi · Olive · Salame · Basilico",
+      pizzaNote: "Impasto sottile e croccante · Piccola -CHF 2.00",
+      pizzaCta: "Vedi Menu",
+      layers: {
+        basil: "Basilico Genovese & Olio EVO",
+        toppings: "Funghi, Carciofi, Olive & Salame",
+        mozzarella: "Mozzarella Fior di Latte",
+        pelati: "Pelati San Marzano",
+        crust: "Impasto Napoletano 72h",
+      },
+    },
+    menuSection: {
+      specialHeading: "Pizza-Special",
+      eyebrow: "CARTA UFFICIALE · PREZZI IN CHF",
+      title: "Menu.",
+      priceRangeNote: "Fr. 20–30 a persona · Consumazione sul posto & Ritiro all’esterno",
+      categories: {
+        pizze: "Pizze",
+        antipasti_dolci: "Antipasti & Dolci",
+        aperitivo: "Aperitivo",
+        birra_vino: "Birra & Vino",
+        bibite_caffe: "Bibite & Caffè",
+      },
+      filters: {
+        all: "Tutte",
+        vegetarian: "Vegetariana",
+        vegan: "Vegana",
+        meat: "Carne",
+        fish: "Pesce",
+      },
+      legend: {
+        vegetarian: "Vegetariano",
+        vegan: "Vegano",
+        pork: "Maiale",
+        cow: "Manzo",
+        fish: "Pesce",
+        taxNote: "Tutte le pizze disponibili anche piccole (-CHF 2.00) · Prezzi in CHF IVA incl.",
+      },
+    },
+    locationSection: {
+      eyebrow: "LOCATION · AM EIGERPLATZ",
+      title: "Belpstrasse 65.",
+      statusOpen: "Aperto",
+      closesAt: "Chiude alle 22:30",
+      addressStreet: "Belpstrasse 65",
+      addressCity: "3007 Berna, Svizzera",
+      plusCode: "WCRJ+RH Berna, Svizzera",
+      services: ["Consumazione sul posto", "Ritiro all’esterno", "Posti a sedere interni ed esterni"],
+      priceLabel: "Fascia di prezzo",
+      priceValue: "Fr. 20–30",
+      priceReported: "a persona · Segnalato da 149 ospiti",
+      hoursLabel: "Orari",
+      hoursDays: "Lunedì – Venerdì",
+      hoursTime: "11:30 – 22:30",
+      peakTitle: "Orari di punta · Giovedì",
+      peakLive: "Meno affollato del solito",
+      directionsCta: "Indicazioni stradali",
+      callCta: "+41 31 371 11 31",
+    },
+    reviewsSection: {
+      eyebrow: "RECENSIONI GOOGLE MAPS",
+      ratingScore: "4,8",
+      totalCount: "1.649 recensioni",
+      priceSummary: "Pizzeria · Fr. 20–30",
+      tags: ["italiana · 30", "vegana · 16", "pizza napoletana · 14", "perfetto · 14"],
+      googleCta: "Vedi su Google Maps",
+      items: [
+        {
+          author: "Cosi Raitmayr",
+          meta: "Local Guide · 256 recensioni · 146 foto",
+          timeAgo: "3 mesi fa",
+          quote:
+            "Amazing Pizzaria!! We got the pizza special, the siciliano and 4 stazione - each was insanely delicious. The staff was super friendly and attentive AND helpful. There is indoor and outdoor seating available as well. We also enjoyed the kombucha and mate drinks. Will definitely come back!",
+          tag: "Pizza Special · Siciliana · 4 Stagioni",
+        },
+        {
+          author: "AS SAWA",
+          meta: "Local Guide · 512 recensioni · 11.968 foto",
+          timeAgo: "2 mesi fa",
+          quote:
+            "I ordered the signature one I think, the 4 stagioni, I love the level of dough. It is thin and crust.",
+          tag: "4 Stagioni · Thin Crust",
+        },
+        {
+          author: "Tim bird",
+          meta: "Local Guide · 136 recensioni · 125 foto",
+          timeAgo: "2 mesi fa",
+          quote:
+            "We loved our visit to this place! Was busy even on a Monday and from the taste of the pizza I can see why! The pizza tasted great and was reasonably priced!",
+          tag: "Dine-in · Bern",
+        },
+      ],
+      footerTagline: "Pizzeria Da Nino · Belpstrasse 65, 3007 Berna · Klein aber fein",
+    },
+  },
+  fr: {
+    skipToMain: "Aller au contenu",
+    header: {
+      brandAria: "Pizzeria Da Nino Berne — Accueil",
+      navAria: "Navigation principale",
+      mobileNavAria: "Navigation mobile",
+      openMenuAria: "Ouvrir le menu",
+      closeMenuAria: "Fermer le menu",
+      langGroupAria: "Langue",
+      nav: {
+        home: "Home",
+        menu: "Menu",
+        location: "Location",
+        reviews: "Reviews",
+      },
+    },
+    hero: {
+      metaLine: "Pizzeria · Belpstrasse 65, Berne · ★ 4,8 (1.649)",
+      scrollCue: "Défiler",
+      pizzaEyebrow: "FOUR SUR PIERRE 450 °C · FERMENTATION 72H",
+      pizzaTitle: "4 Stagioni.",
+      pizzaIngredients: "Pelati · Fior di Latte · Champignons · Artichauts · Olives · Salami · Basilic",
+      pizzaNote: "Pâte fine et croustillante · Petite -CHF 2.00",
+      pizzaCta: "Voir le Menu",
+      layers: {
+        basil: "Basilic & Huile d’Olive",
+        toppings: "Champignons, Artichauts, Olives & Salami",
+        mozzarella: "Mozzarella Fior di Latte",
+        pelati: "Pelati San Marzano",
+        crust: "Pâte Napolitaine 72h",
+      },
+    },
+    menuSection: {
+      specialHeading: "Pizza-Special",
+      eyebrow: "CARTE OFFICIELLE · PRIX EN CHF",
+      title: "Menu.",
+      priceRangeNote: "Fr. 20–30 par personne · Repas sur place & Retrait devant le restaurant",
+      categories: {
+        pizze: "Pizze",
+        antipasti_dolci: "Antipasti & Dolci",
+        aperitivo: "Aperitivo",
+        birra_vino: "Birra & Vino",
+        bibite_caffe: "Bibite & Café",
+      },
+      filters: {
+        all: "Toutes",
+        vegetarian: "Végétarien",
+        vegan: "Végan",
+        meat: "Viande",
+        fish: "Poisson",
+      },
+      legend: {
+        vegetarian: "Végétarien",
+        vegan: "Végan",
+        pork: "Porc",
+        cow: "Bœuf",
+        fish: "Poisson",
+        taxNote: "Toutes les pizzas aussi en petit format (-CHF 2.00) · Prix en CHF TVA incl.",
+      },
+    },
+    locationSection: {
+      eyebrow: "LOCATION · AM EIGERPLATZ",
+      title: "Belpstrasse 65.",
+      statusOpen: "Ouvert",
+      closesAt: "Ferme à 22:30",
+      addressStreet: "Belpstrasse 65",
+      addressCity: "3007 Berne, Suisse",
+      plusCode: "WCRJ+RH Berne, Suisse",
+      services: ["Repas sur place", "Retrait à l’extérieur", "Places assises intérieures & terrasse"],
+      priceLabel: "Prix moyen",
+      priceValue: "Fr. 20–30",
+      priceReported: "par personne · Signalé par 149 clients",
+      hoursLabel: "Horaires",
+      hoursDays: "Lundi – Vendredi",
+      hoursTime: "11:30 – 22:30",
+      peakTitle: "Heures d’affluence · Jeudi",
+      peakLive: "Moins fréquenté qu’à l’accoutumée",
+      directionsCta: "Itinéraire",
+      callCta: "+41 31 371 11 31",
+    },
+    reviewsSection: {
+      eyebrow: "AVIS GOOGLE MAPS",
+      ratingScore: "4,8",
+      totalCount: "1.649 avis",
+      priceSummary: "Pizzeria · Fr. 20–30",
+      tags: ["italienne · 30", "végane · 16", "pizza napolitaine · 14", "parfait · 14"],
+      googleCta: "Voir sur Google Maps",
+      items: [
+        {
+          author: "Cosi Raitmayr",
+          meta: "Local Guide · 256 avis · 146 photos",
+          timeAgo: "Il y a 3 mois",
+          quote:
+            "Amazing Pizzaria!! We got the pizza special, the siciliano and 4 stazione - each was insanely delicious. The staff was super friendly and attentive AND helpful. There is indoor and outdoor seating available as well. We also enjoyed the kombucha and mate drinks. Will definitely come back!",
+          tag: "Pizza Special · Siciliana · 4 Stagioni",
+        },
+        {
+          author: "AS SAWA",
+          meta: "Local Guide · 512 avis · 11.968 photos",
+          timeAgo: "Il y a 2 mois",
+          quote:
+            "I ordered the signature one I think, the 4 stagioni, I love the level of dough. It is thin and crust.",
+          tag: "4 Stagioni · Thin Crust",
+        },
+        {
+          author: "Tim bird",
+          meta: "Local Guide · 136 avis · 125 photos",
+          timeAgo: "Il y a 2 mois",
+          quote:
+            "We loved our visit to this place! Was busy even on a Monday and from the taste of the pizza I can see why! The pizza tasted great and was reasonably priced!",
+          tag: "Dine-in · Bern",
+        },
+      ],
+      footerTagline: "Pizzeria Da Nino · Belpstrasse 65, 3007 Berne · Klein aber fein",
     },
   },
   en: {
