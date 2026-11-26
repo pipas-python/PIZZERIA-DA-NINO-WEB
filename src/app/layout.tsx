@@ -1,29 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Plus_Jakarta_Sans, Syne } from "next/font/google";
 import { DaNinoSvgSprite } from "@/components/icons/DaNinoBrandIcons";
 import "./fonts.css";
 import "./globals.css";
-
-const displayFont = Syne({
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  variable: "--font-display-loaded",
-  display: "swap",
-});
-
-const sansFont = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-sans-loaded",
-  display: "swap",
-});
-
-const monoFont = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-mono-loaded",
-  display: "swap",
-});
 
 function resolveMetadataBase() {
   const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
@@ -45,26 +23,25 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: resolveMetadataBase(),
-  title: "Pizzeria Da Nino am Eigerplatz Bern » 031 371 11 31 | Restaurant & Take Away",
+  title: "Pizzeria da Nino · Belpstrasse 65, 3007 Bern | Pizza & Take Away",
   description:
-    "Pizzeria Da Nino am Eigerplatz in Bern (Belpstrasse 65, 3007 Bern). Restaurant & Take Away — Klein aber fein. Interaktive 60-FPS-Speisekarte, Pizza-Special Numero Dodici, Aperitivo & Vorbestellung.",
+    "Pizzeria da Nino am Eigerplatz (Belpstrasse 65, 3007 Bern). ★ 4,8 (1.649 reseñas) · Fr. 20–30 · Consumo en el lugar y Take Away. Abierto hasta las 22:30.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
-    locale: "de_CH",
+    locale: "es_ES",
     url: "https://www.pizzeriadanino.ch/",
-    siteName: "Pizzeria Da Nino am Eigerplatz Bern",
-    title: "Pizzeria Da Nino am Eigerplatz Bern » 031 371 11 31 | Restaurant & Take Away",
+    siteName: "Pizzeria da Nino Bern",
+    title: "Pizzeria da Nino · Belpstrasse 65, 3007 Bern",
     description:
-      "Handwerkliche Pizze, Pizza-Special Numero Dodici, Stracciatella di Burrata, Aperitivo & Take Away an der Belpstrasse 65 in 3007 Bern.",
+      "Pizzas artesanas al horno de piedra, Menu oficial en CHF, Location en Belpstrasse 65 y 4,8 ★ (1.649 reseñas).",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pizzeria Da Nino am Eigerplatz Bern » 031 371 11 31",
-    description:
-      "Restaurant & Take Away am Eigerplatz (Belpstrasse 65, 3007 Bern). Klein aber fein — Komm vorbei, wir freuen uns.",
+    title: "Pizzeria da Nino · Belpstrasse 65, 3007 Bern",
+    description: "Pizzeria da Nino · ★ 4,8 (1.649) · Fr. 20–30 · +41 31 371 11 31.",
   },
 };
 
@@ -74,14 +51,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="de"
-      className={`${displayFont.variable} ${sansFont.variable} ${monoFont.variable}`}
-    >
+    <html lang="es">
       <body>
         <DaNinoSvgSprite />
-        <a id="skip-to-main" href="#top" className="skip-link">
-          Zum Hauptinhalt springen
+        <a id="skip-to-main" href="#home" className="skip-link">
+          Saltar al contenido
         </a>
         {children}
       </body>

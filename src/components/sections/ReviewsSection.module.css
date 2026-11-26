@@ -1,0 +1,290 @@
+.section {
+  position: relative;
+  padding-top: clamp(4.5rem, 8vw, 7rem);
+  padding-bottom: clamp(2.5rem, 4vw, 3.5rem);
+  background-color: #f4f4f4;
+  color: #1d1d1b;
+  border-top: 10px solid #e41f13;
+  z-index: 2;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: end;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 10px solid #e41f13;
+}
+
+@media (min-width: 900px) {
+  .summaryGrid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.scoreCluster {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.eyebrow {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e41f13;
+}
+
+.scoreRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.bigScore {
+  font-family: "Catalog", sans-serif;
+  font-size: clamp(3.6rem, 2.5rem + 4.5vw, 5.8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: #1d1d1b;
+}
+
+.starsMeta {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.stars {
+  font-size: 1.35rem;
+  letter-spacing: 0.1em;
+  color: #e41f13;
+}
+
+.totalCount {
+  font-family: "Catalog", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: #1d1d1b;
+}
+
+.priceSummary {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.88rem;
+  color: rgba(29, 29, 27, 0.72);
+}
+
+.tagsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.topicChip {
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: #ffffff;
+  border: 1px solid rgba(29, 29, 27, 0.14);
+  font-family: "Catalog", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1d1d1b;
+}
+
+.barsCluster {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.barsList {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.barRow {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.barLabel {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #1d1d1b;
+}
+
+.barTrack {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(29, 29, 27, 0.1);
+  overflow: hidden;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #e41f13;
+}
+
+.googleLink {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 42px;
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--radius-full);
+  background: #1d1d1b;
+  color: #ffffff;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  transition: transform 180ms var(--ease-out), background-color 180ms var(--ease-out);
+}
+
+.googleLink:hover {
+  transform: translateY(-2px);
+  background: #e41f13;
+}
+
+/* ── 3 Review Cards ─────────────────────────────────────────────────────── */
+.reviewsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .reviewsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.reviewCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid rgba(29, 29, 27, 0.1);
+  transition: transform 200ms var(--ease-out), border-color 200ms var(--ease-out);
+}
+
+.reviewCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(228, 31, 19, 0.45);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cardStars {
+  color: #e41f13;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+}
+
+.cardTime {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.78rem;
+  color: rgba(29, 29, 27, 0.6);
+}
+
+.reviewQuote {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.96rem;
+  line-height: 1.52;
+  color: #1d1d1b;
+}
+
+.reviewFooter {
+  display: grid;
+  gap: 0.55rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(29, 29, 27, 0.09);
+}
+
+.reviewAuthor {
+  display: block;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #1d1d1b;
+}
+
+.reviewMeta {
+  display: block;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.76rem;
+  color: rgba(29, 29, 27, 0.65);
+}
+
+.reviewTag {
+  justify-self: start;
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: rgba(228, 31, 19, 0.09);
+  color: #e41f13;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* ── Minimalist Footer ──────────────────────────────────────────────────── */
+.footer {
+  margin-top: clamp(3.5rem, 6vw, 5rem);
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(29, 29, 27, 0.14);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footerBrand {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.85rem;
+  color: rgba(29, 29, 27, 0.75);
+}
+
+.footerLogo {
+  width: 92px;
+  height: 28px;
+  color: #e41f13;
+}
+
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #1d1d1b;
+}
+
+.footerLinks a:hover {
+  color: #e41f13;
+}

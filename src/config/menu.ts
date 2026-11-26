@@ -240,6 +240,19 @@ export const DANINO_FULL_MENU: DaNinoMenuItem[] = [
     prices: [{ priceChf: 19.0, displayPrice: "19.00" }],
   },
   {
+    id: "pizza-4-stagioni",
+    category: "pizze",
+    subCategory: "Pizze",
+    name: "4 Stagioni",
+    dietary: "pork",
+    description: {
+      de: "Pelati | Basilikum | Mozzarella fior di latte | Salame | Pilze | Oliven | Artischocken",
+      en: "Pelati | Fresh basil | Fior di latte mozzarella | Salami | Mushrooms | Olives | Artichokes",
+      es: "Pelati | Albahaca | Mozzarella fior di latte | Salami | Setas | Aceitunas | Alcachofas",
+    },
+    prices: [{ priceChf: 20.0, displayPrice: "20.00" }],
+  },
+  {
     id: "pizza-4-stagioni-vegetale",
     category: "pizze",
     subCategory: "Pizze",

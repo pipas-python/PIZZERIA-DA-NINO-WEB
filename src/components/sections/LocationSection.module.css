@@ -1,0 +1,311 @@
+.section {
+  position: relative;
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+  background-color: #141413;
+  color: #f4f4f4;
+  border-top: 10px solid #e41f13;
+  z-index: 2;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .grid {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+}
+
+.infoCol {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.eyebrow {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff5447;
+}
+
+.title {
+  font-family: "Catalog", sans-serif;
+  font-size: clamp(2.4rem, 1.7rem + 2.8vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.statusRow {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.96rem;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
+}
+
+.statusOpen {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.statusSep,
+.statusCloses {
+  color: rgba(244, 244, 244, 0.76);
+}
+
+.servicesRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+}
+
+.servicePill {
+  padding: 0.34rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: rgba(244, 244, 244, 0.07);
+  border: 1px solid rgba(244, 244, 244, 0.15);
+  font-family: "Catalog", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(244, 244, 244, 0.9);
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  padding-block: 1.25rem;
+  border-top: 1px solid rgba(244, 244, 244, 0.14);
+  border-bottom: 1px solid rgba(244, 244, 244, 0.14);
+}
+
+.detailBlock {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.detailLabel {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 244, 0.56);
+}
+
+.detailPrimary {
+  font-family: "Catalog", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+}
+
+.detailSub {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.84rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(244, 244, 244, 0.7);
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  padding-top: 0.25rem;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0.75rem 1.45rem;
+  border-radius: var(--radius-full);
+  background: #e41f13;
+  color: #ffffff;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: transform 180ms var(--ease-out), background-color 180ms var(--ease-out);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  background: #c8190e;
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.75rem 1.35rem;
+  border-radius: var(--radius-full);
+  background: rgba(244, 244, 244, 0.08);
+  border: 1px solid rgba(244, 244, 244, 0.2);
+  color: #ffffff;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition: transform 180ms var(--ease-out), border-color 180ms var(--ease-out);
+}
+
+.secondaryBtn:hover {
+  transform: translateY(-2px);
+  border-color: #e41f13;
+}
+
+/* ── Map & Peak Hours Column ────────────────────────────────────────────── */
+.visualCol {
+  display: grid;
+  gap: 1rem;
+}
+
+.mapCard {
+  position: relative;
+  display: block;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(244, 244, 244, 0.16);
+  background: #1b1b19;
+  transition: transform 220ms var(--ease-out), border-color 220ms var(--ease-out);
+}
+
+.mapCard:hover {
+  transform: translateY(-3px);
+  border-color: #e41f13;
+}
+
+.mapSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.mapOverlayBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1.2rem;
+  background: #1f1f1d;
+  border-top: 1px solid rgba(244, 244, 244, 0.1);
+}
+
+.mapPinTitle {
+  display: block;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mapPinSub {
+  display: block;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.8rem;
+  color: rgba(244, 244, 244, 0.68);
+}
+
+.mapOpenArrow {
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(228, 31, 19, 0.16);
+  color: #ff6157;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.peakCard {
+  padding: 1.1rem 1.25rem;
+  border-radius: 18px;
+  background: rgba(244, 244, 244, 0.04);
+  border: 1px solid rgba(244, 244, 244, 0.12);
+  display: grid;
+  gap: 0.85rem;
+}
+
+.peakHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.peakTitle {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.peakLive {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.78rem;
+  color: rgba(244, 244, 244, 0.68);
+}
+
+.peakChart {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0.38rem;
+  align-items: end;
+}
+
+.peakCol {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+}
+
+.peakBarTrack {
+  width: 100%;
+  height: 54px;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 6px;
+  background: rgba(244, 244, 244, 0.06);
+  overflow: hidden;
+}
+
+.peakBarFill {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  background: rgba(244, 244, 244, 0.3);
+}
+
+.peakBarActive {
+  background: #e41f13;
+}
+
+.peakTick {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.66rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(244, 244, 244, 0.56);
+  white-space: nowrap;
+  min-height: 1em;
+}

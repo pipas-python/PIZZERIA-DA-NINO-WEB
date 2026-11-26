@@ -2,30 +2,34 @@
 
 import { useEffect, useRef, useState } from "react";
 import { DaNinoLogo } from "@/components/icons/DaNinoBrandIcons";
-import { PRODUCTS_SHOWCASE } from "@/config/products";
-import { useTakeAwayCart } from "@/lib/cart";
 import { DICTIONARIES, type Locale, useLocale } from "@/lib/i18n";
 import { handleAnchorClick, useMagnetic } from "@/lib/interactions";
 import { getLenis, scrollToTarget } from "@/lib/lenis";
-import { useVipRestaurant } from "@/lib/vip";
 import styles from "./MinimalHeader.module.css";
 
 const LOCALES: { code: Locale; label: string; name: string }[] = [
+  { code: "es", label: "ES", name: "Español" },
   { code: "de", label: "DE", name: "Deutsch" },
   { code: "en", label: "EN", name: "English" },
-  { code: "es", label: "ES", name: "Español" },
 ];
+
+const NAV_ITEMS = [
+  { id: "home", key: "home" },
+  { id: "menu", key: "menu" },
+  { id: "location", key: "location" },
+  { id: "reviews", key: "reviews" },
+] as const;
 
 export function MinimalHeader() {
   const barFillRef = useRef<HTMLSpanElement>(null);
   const toggleBtnRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useMagnetic<HTMLAnchorElement>(0.24);
-  const [activeId, setActiveId] = useState<string>(PRODUCTS_SHOWCASE[0]?.id ?? "");
+  const ctaRef = useMagnetic<HTMLAnchorElement>(0.22);
+
+  const [activeId, setActiveId] = useState<string>("home");
+  const [brandVisible, setBrandVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [vipName] = useVipRestaurant();
   const [locale, setLocale] = useLocale();
-  const { totalItems } = useTakeAwayCart();
   const dict = DICTIONARIES[locale];
 
   useEffect(() => {
@@ -35,35 +39,34 @@ export function MinimalHeader() {
     }
   }, [dict.skipToMain]);
 
-  // Barra de progreso actualizada directamente en el DOM (transform: scaleX) sin re-renders de React
   useEffect(() => {
     let rafId = 0;
 
     const updateProgressAndActive = () => {
       rafId = 0;
+      const scrollY = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const ratio = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+      const ratio = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
+
       if (barFillRef.current) {
         barFillRef.current.style.transform = `scaleX(${ratio.toFixed(4)})`;
       }
 
-      const probeY = window.innerHeight * 0.38;
-      const candidateIds = [
-        ...PRODUCTS_SHOWCASE.map((item) => item.id),
-        "take-away-karte",
-        "contacto",
-      ];
-      let current = candidateIds[0] ?? "";
+      const showBrand = scrollY > window.innerHeight * 0.16;
+      setBrandVisible((prev) => (prev === showBrand ? prev : showBrand));
 
-      for (const id of candidateIds) {
-        const el = document.getElementById(id);
+      const probeY = window.innerHeight * 0.4;
+      let current = "home";
+
+      for (const item of NAV_ITEMS) {
+        const el = document.getElementById(item.id);
         if (!el) continue;
         const container = el.parentElement?.classList.contains("pin-spacer")
           ? el.parentElement
           : el;
         const rect = container.getBoundingClientRect();
         if (rect.top <= probeY) {
-          current = id;
+          current = item.id;
         }
       }
 
@@ -117,13 +120,19 @@ export function MinimalHeader() {
     event.preventDefault();
     setMenuOpen(false);
     window.requestAnimationFrame(() => {
-      scrollToTarget(target);
+      if (target === "#home") {
+        scrollToTarget(0);
+      } else {
+        scrollToTarget(target);
+      }
       history.replaceState(null, "", target);
     });
   }
 
   return (
-    <header className={styles.header}>
+    <header
+      className={`${styles.header} ${brandVisible ? styles.headerScrolled : styles.headerOpening}`}
+    >
       <div className={styles.bar} aria-hidden="true">
         <span ref={barFillRef} className={styles.barFill} />
       </div>
@@ -132,41 +141,39 @@ export function MinimalHeader() {
         <div className={styles.brandCluster}>
           <a
             id="header-brand-link"
-            href="#top"
-            className={styles.brand}
+            href="#home"
+            className={`${styles.brand} ${brandVisible ? styles.brandShown : styles.brandHidden}`}
             aria-label={dict.header.brandAria}
+            tabIndex={brandVisible ? 0 : -1}
             onClick={(event) => {
               event.preventDefault();
               setMenuOpen(false);
               scrollToTarget(0);
-              history.replaceState(null, "", "#top");
+              history.replaceState(null, "", "#home");
             }}
           >
             <DaNinoLogo className={styles.brandLogoSvg} />
-            <span className={styles.brandLocation}>{dict.header.locationBadge}</span>
           </a>
-
-          {vipName && (
-            <span
-              className={`mono ${styles.vipBadge}`}
-              title={`${dict.header.vipTitlePrefix} ${vipName}`}
-            >
-              <span className={styles.vipDot} aria-hidden="true" />
-              {dict.header.vipPrefix} · {vipName.toUpperCase()}
-            </span>
-          )}
         </div>
 
         <nav className={styles.nav} aria-label={dict.header.navAria}>
-          {PRODUCTS_SHOWCASE.map((item) => {
+          {NAV_ITEMS.map((item) => {
             const isActive = activeId === item.id;
-            const label = dict.products[item.key].navLabel;
+            const label = dict.header.nav[item.key];
             return (
               <a
                 key={item.id}
                 id={`header-nav-${item.id}`}
                 href={`#${item.id}`}
-                onClick={handleAnchorClick}
+                onClick={(event) => {
+                  if (item.id === "home") {
+                    event.preventDefault();
+                    scrollToTarget(0);
+                    history.replaceState(null, "", "#home");
+                    return;
+                  }
+                  handleAnchorClick(event);
+                }}
                 aria-current={isActive ? "location" : undefined}
                 className={`${styles.navLink} ${isActive ? styles.navLinkActive : ""}`}
               >
@@ -174,17 +181,6 @@ export function MinimalHeader() {
               </a>
             );
           })}
-          <a
-            id="header-nav-take-away-karte"
-            href="#take-away-karte"
-            onClick={handleAnchorClick}
-            aria-current={activeId === "take-away-karte" ? "location" : undefined}
-            className={`${styles.navLink} ${
-              activeId === "take-away-karte" ? styles.navLinkActive : ""
-            }`}
-          >
-            {dict.header.navFullMenu}
-          </a>
         </nav>
 
         <div className={styles.actions}>
@@ -202,7 +198,7 @@ export function MinimalHeader() {
                   type="button"
                   aria-pressed={isCurrent}
                   aria-label={item.name}
-                  className={`mono ${styles.langBtn} ${isCurrent ? styles.langBtnActive : ""}`}
+                  className={`${styles.langBtn} ${isCurrent ? styles.langBtnActive : ""}`}
                   onClick={() => setLocale(item.code)}
                 >
                   {item.label}
@@ -212,17 +208,12 @@ export function MinimalHeader() {
           </div>
 
           <a
-            id="header-cta-demo"
+            id="header-cta-phone"
             ref={ctaRef}
-            href="#contacto"
-            onClick={handleAnchorClick}
-            aria-current={activeId === "contacto" ? "location" : undefined}
+            href="tel:+41313711131"
             className={styles.cta}
           >
-            <span>{dict.header.ctaDemo}</span>
-            {totalItems > 0 && (
-              <span className={`mono ${styles.cartCountPill}`}>{totalItems}</span>
-            )}
+            +41 31 371 11 31
           </a>
 
           <button
@@ -250,9 +241,9 @@ export function MinimalHeader() {
         aria-hidden={!menuOpen}
       >
         <nav className={`container ${styles.mobileNav}`} aria-label={dict.header.mobileNavAria}>
-          {PRODUCTS_SHOWCASE.map((item) => {
+          {NAV_ITEMS.map((item) => {
             const isActive = activeId === item.id;
-            const label = dict.products[item.key].navLabel;
+            const label = dict.header.nav[item.key];
             return (
               <a
                 key={item.id}
@@ -269,29 +260,12 @@ export function MinimalHeader() {
             );
           })}
           <a
-            id="mobile-nav-take-away-karte"
-            href="#take-away-karte"
-            tabIndex={menuOpen ? 0 : -1}
-            aria-current={activeId === "take-away-karte" ? "location" : undefined}
-            className={`${styles.mobileLink} ${
-              activeId === "take-away-karte" ? styles.mobileLinkActive : ""
-            }`}
-            onClick={(event) => onMobileNavigate(event, "#take-away-karte")}
-          >
-            <span>{dict.header.navFullMenu}</span>
-            <span aria-hidden="true">→</span>
-          </a>
-          <a
-            id="mobile-nav-cta-demo"
-            href="#contacto"
+            id="mobile-nav-cta-phone"
+            href="tel:+41313711131"
             tabIndex={menuOpen ? 0 : -1}
             className={styles.mobileCta}
-            onClick={(event) => onMobileNavigate(event, "#contacto")}
           >
-            <span>{dict.header.mobileCtaDemo}</span>
-            {totalItems > 0 && (
-              <span className={`mono ${styles.cartCountPill}`}>{totalItems}</span>
-            )}
+            +41 31 371 11 31
           </a>
         </nav>
       </div>
