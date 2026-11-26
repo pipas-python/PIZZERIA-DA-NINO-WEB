@@ -30,7 +30,7 @@ export function HeroPizzaStage() {
   const dict = DICTIONARIES[locale];
   const tHero = dict.hero;
 
-  // Interactive 60 FPS 3D pointer tilt on the pizza stage
+  // Interactive 60 FPS 3D pointer tilt on devices with fine pointer (desktop/trackpad)
   useEffect(() => {
     const section = sectionRef.current;
     const tiltWrap = tiltWrapRef.current;
@@ -71,12 +71,6 @@ export function HeroPizzaStage() {
     };
   }, []);
 
-  // Main ScrollTrigger Choreography:
-  // 0.00: Centered Da Nino Logo in the middle of the viewport on Da Nino Red (#D81E12)
-  // 0.04 -> 0.22: Centered Logo lifts & dissolves while canvas deepens to Wood-Fired Charcoal (#141413)
-  // 0.12 -> 0.34: 5 Photorealistic Pizza Layers emerge in 3D exploded perspective
-  // 0.34 -> 0.74: Layers converge into the cornicione crust & seamlessly fuse into whole baked pizza
-  // 0.76 -> 1.00: Minimal signature caption & Menu CTA reveal
   useEffect(() => {
     const section = sectionRef.current;
     const logoHero = logoHeroRef.current;
@@ -95,14 +89,13 @@ export function HeroPizzaStage() {
     const callouts = gsap.utils.toArray<HTMLElement>("[data-pizza-callout]", stage);
     const captionItems = gsap.utils.toArray<HTMLElement>("[data-caption-item]", caption);
 
-    const baseWidth = Math.min(480, window.innerWidth * 0.84);
-    const ratio = baseWidth / 480;
-    const explodedSpan = (212 - -224 + 210) * ratio;
-
     const mm = gsap.matchMedia();
 
     // ── Desktop (>= 960px)
     mm.add("(min-width: 960px) and (prefers-reduced-motion: no-preference)", () => {
+      const baseWidth = Math.min(480, window.innerWidth * 0.84);
+      const ratio = baseWidth / 480;
+      const explodedSpan = (212 - -224 + 210) * ratio;
       const fit = gsap.utils.clamp(0.62, 0.94, (window.innerHeight - 170) / explodedSpan);
 
       gsap.set(root, PALETTES.red);
@@ -122,8 +115,10 @@ export function HeroPizzaStage() {
       gsap.set(captionItems, { opacity: 0, y: 26 });
 
       if (glow) gsap.set(glow, { opacity: 0, scale: 0.78 });
-      if (orbitOuter) gsap.set(orbitOuter, { rotation: 0, scale: 1.06, opacity: 0, transformOrigin: "50% 50%" });
-      if (orbitInner) gsap.set(orbitInner, { rotation: 0, scale: 0.92, opacity: 0, transformOrigin: "50% 50%" });
+      if (orbitOuter)
+        gsap.set(orbitOuter, { rotation: 0, scale: 1.06, opacity: 0, transformOrigin: "50% 50%" });
+      if (orbitInner)
+        gsap.set(orbitInner, { rotation: 0, scale: 0.92, opacity: 0, transformOrigin: "50% 50%" });
       if (steamGroup) gsap.set(steamGroup, { opacity: 0, y: 16 });
 
       SIGNATURE_PIZZA.layers.forEach((spec, idx) => {
@@ -144,13 +139,12 @@ export function HeroPizzaStage() {
           start: "top top",
           end: "+=300%",
           pin: true,
-          scrub: 0.7,
+          scrub: 0.65,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
       });
 
-      // 1. Centered Da Nino Logo lifts & fades out on first scroll
       if (scrollCue) {
         tl.to(scrollCue, { opacity: 0, y: 12, duration: 0.08, ease: "power1.out" }, 0);
       }
@@ -166,7 +160,6 @@ export function HeroPizzaStage() {
         0.02,
       );
 
-      // Transition canvas from Da Nino Red (#D81E12) to Wood-Fired Charcoal (#141413)
       tl.to(
         root,
         {
@@ -177,7 +170,6 @@ export function HeroPizzaStage() {
         0.05,
       );
 
-      // 2. Pizza Stage & 5 Deconstructed Layers emerge in 3D space
       tl.to(
         stage,
         {
@@ -227,7 +219,6 @@ export function HeroPizzaStage() {
         0.2,
       );
 
-      // 3. Callouts retract and all 5 layers converge into the cornicione crust
       tl.to(
         callouts,
         {
@@ -262,7 +253,6 @@ export function HeroPizzaStage() {
         tl.to(glow, { opacity: 0.95, scale: 1.14, duration: 0.3, ease: "power2.out" }, 0.52);
       }
 
-      // Seamless photorealistic lock-in into whole freshly baked Quattro Stagioni pizza
       tl.to(
         assembledPizza,
         {
@@ -287,7 +277,6 @@ export function HeroPizzaStage() {
         tl.to(steamGroup, { opacity: 0.85, y: -8, duration: 0.22, ease: "power2.out" }, 0.68);
       }
 
-      // 4. Glide assembled pizza right & reveal concise signature caption on left
       tl.to(
         stage,
         {
@@ -312,9 +301,15 @@ export function HeroPizzaStage() {
       );
     });
 
-    // ── Mobile & Tablet (< 960px)
+    // ── Mobile & Tablet (< 960px) — Rock-solid svh layout with zero address-bar jitter
     mm.add("(max-width: 959px) and (prefers-reduced-motion: no-preference)", () => {
-      const fit = gsap.utils.clamp(0.58, 0.88, (window.innerHeight - 230) / explodedSpan);
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const baseWidth = Math.min(480, vw * 0.84);
+      const ratio = baseWidth / 480;
+      const explodedSpan = (212 - -224 + 200) * ratio;
+      const fit = gsap.utils.clamp(0.52, 0.82, (vh - 200) / explodedSpan);
+      const isShortScreen = vh < 700;
 
       gsap.set(root, PALETTES.red);
       gsap.set(logoHero, { xPercent: -50, yPercent: -50, opacity: 1, scale: 1, y: 0 });
@@ -324,12 +319,12 @@ export function HeroPizzaStage() {
         xPercent: -50,
         yPercent: -50,
         x: 0,
-        y: 22,
-        scale: fit * 0.9,
+        y: 18,
+        scale: fit * 0.92,
         opacity: 0,
       });
       gsap.set(assembledPizza, { opacity: 0, scale: 0.985, y: 8 * ratio });
-      gsap.set(captionItems, { opacity: 0, y: 20 });
+      gsap.set(captionItems, { opacity: 0, y: 18 });
 
       if (glow) gsap.set(glow, { opacity: 0, scale: 0.8 });
       if (orbitOuter) gsap.set(orbitOuter, { rotation: 0, opacity: 0, transformOrigin: "50% 50%" });
@@ -340,9 +335,9 @@ export function HeroPizzaStage() {
         const el = layers[idx];
         if (!el) return;
         gsap.set(el, {
-          x: spec.explodedX * ratio * 0.6,
-          y: spec.explodedY * ratio * 1.08,
-          rotation: spec.explodedRotate * 0.85,
+          x: spec.explodedX * ratio * 0.55,
+          y: spec.explodedY * ratio * 1.04,
+          rotation: spec.explodedRotate * 0.8,
           scale: spec.explodedScale,
           opacity: 0,
         });
@@ -352,18 +347,18 @@ export function HeroPizzaStage() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=250%",
+          end: "+=230%",
           pin: true,
-          scrub: 0.65,
+          scrub: 0.5,
           anticipatePin: 1,
-          invalidateOnRefresh: true,
+          invalidateOnRefresh: false,
         },
       });
 
       if (scrollCue) {
         tl.to(scrollCue, { opacity: 0, y: 10, duration: 0.08 }, 0);
       }
-      tl.to(logoHero, { opacity: 0, y: -56, scale: 1.08, duration: 0.16, ease: "power2.inOut" }, 0.02);
+      tl.to(logoHero, { opacity: 0, y: -52, scale: 1.06, duration: 0.16, ease: "power2.inOut" }, 0.02);
       tl.to(root, { ...PALETTES.dark, duration: 0.22, ease: "none" }, 0.05);
 
       tl.to(stage, { opacity: 1, y: 0, scale: fit, duration: 0.18, ease: "power2.out" }, 0.11);
@@ -380,15 +375,15 @@ export function HeroPizzaStage() {
       );
 
       if (orbitOuter) {
-        tl.to(orbitOuter, { opacity: 0.9, duration: 0.15 }, 0.15);
-        tl.to(orbitOuter, { rotation: 95, duration: 0.85, ease: "none" }, 0.15);
+        tl.to(orbitOuter, { opacity: 0.85, duration: 0.15 }, 0.15);
+        tl.to(orbitOuter, { rotation: 90, duration: 0.85, ease: "none" }, 0.15);
       }
       if (orbitInner) {
-        tl.to(orbitInner, { opacity: 0.9, duration: 0.15 }, 0.15);
-        tl.to(orbitInner, { rotation: -110, duration: 0.85, ease: "none" }, 0.15);
+        tl.to(orbitInner, { opacity: 0.85, duration: 0.15 }, 0.15);
+        tl.to(orbitInner, { rotation: -105, duration: 0.85, ease: "none" }, 0.15);
       }
       if (glow) {
-        tl.to(glow, { opacity: 0.9, scale: 1.1, duration: 0.35 }, 0.42);
+        tl.to(glow, { opacity: 0.85, scale: 1.08, duration: 0.35 }, 0.42);
       }
 
       SIGNATURE_PIZZA.layers.forEach((spec, idx) => {
@@ -408,20 +403,20 @@ export function HeroPizzaStage() {
         );
       });
 
-      tl.to(stage, { scale: 0.96, duration: 0.34, ease: "power2.inOut" }, 0.35);
+      tl.to(stage, { scale: isShortScreen ? 0.84 : 0.94, duration: 0.34, ease: "power2.inOut" }, 0.35);
 
       tl.to(assembledPizza, { opacity: 1, scale: 1, duration: 0.13, ease: "power2.inOut" }, 0.63);
       tl.to(layers, { opacity: 0, duration: 0.11, ease: "power1.inOut" }, 0.66);
 
       if (steamGroup) {
-        tl.to(steamGroup, { opacity: 0.8, y: -6, duration: 0.2 }, 0.67);
+        tl.to(steamGroup, { opacity: 0.78, y: -6, duration: 0.2 }, 0.67);
       }
 
       tl.to(
         stage,
         {
-          y: () => -Math.min(window.innerHeight * 0.15, 105),
-          scale: 0.9,
+          y: -Math.min(vh * (isShortScreen ? 0.19 : 0.16), 124),
+          scale: isShortScreen ? 0.78 : 0.88,
           duration: 0.22,
           ease: "power2.inOut",
         },
@@ -461,12 +456,12 @@ export function HeroPizzaStage() {
       ref={sectionRef}
       data-palette="dark"
       className={styles.section}
-      aria-label="Pizzeria Da Nino Bern"
+      aria-label={tHero.srHeading}
     >
       <div className={`container ${styles.viewport}`}>
         {/* ── OPENING BEAT: Centered Da Nino Logo right in the middle of the page ── */}
         <div ref={logoHeroRef} className={styles.heroLogoCenter}>
-          <h1 className="sr-only">Pizzeria Da Nino — Belpstrasse 65, 3007 Bern</h1>
+          <h1 className="sr-only">{tHero.srHeading}</h1>
           <DaNinoLogo className={styles.heroLogoSvg} />
           <p className={styles.heroMetaLine}>{tHero.metaLine}</p>
         </div>
@@ -582,7 +577,6 @@ export function HeroPizzaStage() {
                 );
               })}
 
-              {/* Photorealistic whole assembled pizza locked in at identical perspective */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 ref={assembledPizzaRef}
@@ -600,7 +594,7 @@ export function HeroPizzaStage() {
           </div>
         </div>
 
-        {/* ── MINIMAL SIGNATURE CAPTION (Reveals once pizza is assembled) ── */}
+        {/* ── MINIMAL SIGNATURE CAPTION ── */}
         <div ref={captionRef} className={styles.captionCol}>
           <span data-caption-item className={styles.eyebrow}>
             {tHero.pizzaEyebrow}

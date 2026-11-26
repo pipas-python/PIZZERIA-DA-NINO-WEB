@@ -4,8 +4,10 @@ import { useMemo, useState } from "react";
 import {
   DANINO_FULL_MENU,
   DANINO_SPECIAL_ITEM,
+  resolveItemName,
   type DaNinoMenuItem,
   type MenuCategoryId,
+  type MenuSubCategoryId,
 } from "@/config/menu";
 import {
   DaNinoSpecialFrame,
@@ -60,7 +62,7 @@ export function InteractiveMenuSection() {
   }, [activeCategory, dietaryFilter]);
 
   const groupedSubcategories = useMemo(() => {
-    const map = new Map<string, DaNinoMenuItem[]>();
+    const map = new Map<MenuSubCategoryId, DaNinoMenuItem[]>();
     for (const item of filteredItems) {
       const existing = map.get(item.subCategory) ?? [];
       existing.push(item);
@@ -96,7 +98,7 @@ export function InteractiveMenuSection() {
             <div className={styles.specialInner}>
               <span className={styles.specialKicker}>{tMenu.specialHeading}</span>
               <h3 className={styles.specialName}>
-                <span>{DANINO_SPECIAL_ITEM.name}</span>
+                <span>{resolveItemName(DANINO_SPECIAL_ITEM, locale)}</span>
                 {DANINO_SPECIAL_ITEM.dietary && (
                   <DietaryIcon
                     tag={DANINO_SPECIAL_ITEM.dietary}
@@ -110,7 +112,7 @@ export function InteractiveMenuSection() {
           </div>
         </div>
 
-        {/* ── Clean Category & Dietary Controls ── */}
+        {/* ── Fully Localized Category & Dietary Controls ── */}
         <div className={styles.controlsBar}>
           <div className={styles.categoryTabs} role="tablist" aria-label={tMenu.title}>
             {CATEGORY_ORDER.map((catId) => {
@@ -137,7 +139,7 @@ export function InteractiveMenuSection() {
           </div>
 
           {showDietaryFilters && (
-            <div className={styles.dietaryFilters} role="group" aria-label="Dietary filter">
+            <div className={styles.dietaryFilters} role="group" aria-label={tMenu.filterGroupAria}>
               {(
                 [
                   { id: "all", label: tMenu.filters.all, icon: undefined },
@@ -167,10 +169,10 @@ export function InteractiveMenuSection() {
         </div>
 
         {/* ── Menu Items Grid with Architectural 10px Da Nino Red Rules ── */}
-        {groupedSubcategories.map(([subCatName, items]) => (
-          <div key={subCatName} className={styles.subCategoryBlock}>
+        {groupedSubcategories.map(([subCatId, items]) => (
+          <div key={subCatId} className={styles.subCategoryBlock}>
             <h3 className={styles.subTitle}>
-              <span>{subCatName}</span>
+              <span>{tMenu.subCategories[subCatId]}</span>
               <span className={styles.subTitleUnderline} aria-hidden="true">
                 <span />
                 <span />
@@ -178,48 +180,57 @@ export function InteractiveMenuSection() {
             </h3>
 
             <div className={styles.menuGrid}>
-              {items.map((item) => (
-                <article key={item.id} className={styles.menuItem}>
-                  <div className={styles.menuItemMain}>
-                    <h4 className={styles.menuItemName}>
-                      <span>{item.name}</span>
-                      {item.dietary && (
-                        <DietaryIcon
-                          tag={item.dietary}
-                          className={styles.menuItemDietaryIcon}
-                        />
+              {items.map((item) => {
+                const itemName = resolveItemName(item, locale);
+                const multiPrice = item.prices.length > 1;
+                return (
+                  <article
+                    key={item.id}
+                    className={`${styles.menuItem} ${multiPrice ? styles.menuItemMulti : ""}`}
+                  >
+                    <div className={styles.menuItemMain}>
+                      <h4 className={styles.menuItemName}>
+                        <span>{itemName}</span>
+                        {item.dietary && (
+                          <DietaryIcon
+                            tag={item.dietary}
+                            className={styles.menuItemDietaryIcon}
+                          />
+                        )}
+                      </h4>
+                      {item.description[locale] && (
+                        <p className={styles.menuItemDesc}>{item.description[locale]}</p>
                       )}
-                    </h4>
-                    {item.description[locale] && (
-                      <p className={styles.menuItemDesc}>{item.description[locale]}</p>
-                    )}
-                  </div>
+                    </div>
 
-                  <div className={styles.menuItemPrices}>
-                    {item.prices.map((priceOpt) => {
-                      const optKey = `${item.id}::${priceOpt.size ?? ""}`;
-                      return (
-                        <div key={optKey} className={styles.priceRow}>
-                          {priceOpt.size && (
-                            <span className={styles.priceSize}>{priceOpt.size}</span>
-                          )}
-                          <span className={styles.priceValue}>
-                            <span className={styles.priceCurrency}>CHF</span>{" "}
-                            {priceOpt.displayPrice}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </article>
-              ))}
+                    <div className={styles.menuItemPrices}>
+                      {item.prices.map((priceOpt) => {
+                        const optKey = `${item.id}::${priceOpt.size ?? ""}`;
+                        return (
+                          <div key={optKey} className={styles.priceRow}>
+                            {priceOpt.size && (
+                              <span className={styles.priceSize}>
+                                {tMenu.sizes[priceOpt.size]}
+                              </span>
+                            )}
+                            <span className={styles.priceValue}>
+                              <span className={styles.priceCurrency}>CHF</span>{" "}
+                              {priceOpt.displayPrice}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         ))}
 
         {/* ── Official Da Nino Dietary Legend ── */}
         <div className={styles.legendBar}>
-          <ul className={styles.legendList} aria-label="Dietary legend">
+          <ul className={styles.legendList} aria-label={tMenu.legendGroupAria}>
             {(
               [
                 { tag: "vegetarian", label: tMenu.legend.vegetarian },

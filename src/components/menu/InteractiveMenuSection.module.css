@@ -1,6 +1,6 @@
 .menuSection {
   position: relative;
-  padding-block: clamp(4.5rem, 8vw, 7.25rem);
+  padding-block: clamp(4rem, 8vw, 7rem);
   color: #1d1d1b;
   background-color: #f4f4f4;
   border-top: 10px solid #e41f13;
@@ -11,14 +11,14 @@
   text-align: center;
   max-width: 640px;
   margin-inline: auto;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  margin-bottom: clamp(1.8rem, 4vw, 3rem);
   display: grid;
   gap: 0.5rem;
 }
 
 .eyebrow {
   font-family: "Catalog", sans-serif;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -27,7 +27,7 @@
 
 .title {
   font-family: "Catalog", sans-serif;
-  font-size: clamp(2.5rem, 1.8rem + 2.8vw, 4rem);
+  font-size: clamp(2.25rem, 1.7rem + 2.8vw, 4rem);
   font-weight: 900;
   letter-spacing: -0.03em;
   color: #1d1d1b;
@@ -35,7 +35,7 @@
 
 .priceRangeNote {
   font-family: "Catalog", sans-serif;
-  font-size: 0.96rem;
+  font-size: clamp(0.88rem, 0.84rem + 0.2vw, 0.96rem);
   font-weight: 400;
   color: rgba(29, 29, 27, 0.75);
 }
@@ -44,7 +44,7 @@
 .specialShowcase {
   max-width: 920px;
   margin-inline: auto;
-  margin-bottom: clamp(2.75rem, 5vw, 4.25rem);
+  margin-bottom: clamp(2.25rem, 5vw, 4.25rem);
 }
 
 .specialFrameWrap {
@@ -53,7 +53,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(2.25rem, 4.5vw, 3.5rem) clamp(1.5rem, 5vw, 4rem);
+  padding: clamp(2.65rem, 8.5vw, 3.6rem) clamp(2.15rem, 9vw, 4.25rem);
   text-align: center;
 }
 
@@ -69,15 +69,15 @@
 .specialInner {
   position: relative;
   z-index: 1;
-  max-width: 640px;
+  max-width: 620px;
   display: grid;
   justify-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .specialKicker {
   font-family: "Catalog", sans-serif;
-  font-size: clamp(1.1rem, 0.95rem + 0.8vw, 1.6rem);
+  font-size: clamp(1rem, 0.9rem + 0.7vw, 1.55rem);
   font-weight: 900;
   color: #e41f13;
   letter-spacing: -0.02em;
@@ -88,9 +88,9 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.45rem;
   font-family: "Catalog", sans-serif;
-  font-size: clamp(1.85rem, 1.3rem + 2.4vw, 3.1rem);
+  font-size: clamp(1.65rem, 1.25rem + 2.3vw, 3.1rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.03em;
@@ -105,8 +105,8 @@
 
 .specialDesc {
   font-family: "Catalog", sans-serif;
-  font-size: clamp(0.95rem, 0.88rem + 0.35vw, 1.2rem);
-  line-height: 1.4;
+  font-size: clamp(0.9rem, 0.85rem + 0.32vw, 1.18rem);
+  line-height: 1.42;
   color: rgba(29, 29, 27, 0.85);
   max-width: 540px;
 }
@@ -114,7 +114,7 @@
 .specialPrice {
   margin-top: 0.25rem;
   font-family: "Catalog", sans-serif;
-  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.55rem);
+  font-size: clamp(1.15rem, 1.02rem + 0.5vw, 1.55rem);
   font-weight: 900;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
@@ -125,26 +125,26 @@
 .controlsBar {
   display: grid;
   justify-items: center;
-  gap: 0.95rem;
-  margin-bottom: 2.75rem;
+  gap: 0.9rem;
+  margin-bottom: 2.5rem;
 }
 
 .categoryTabs {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .categoryTab {
-  min-height: 44px;
-  padding: 0.55rem 1.2rem;
+  min-height: 42px;
+  padding: 0.5rem 1.05rem;
   border-radius: var(--radius-full);
   background: #ffffff;
   border: 2px solid rgba(29, 29, 27, 0.14);
   color: #1d1d1b;
   font-family: "Catalog", sans-serif;
-  font-size: 0.9rem;
+  font-size: clamp(0.82rem, 0.78rem + 0.2vw, 0.9rem);
   font-weight: 700;
   transition: transform 160ms var(--ease-out), border-color 160ms var(--ease-out),
     background-color 160ms var(--ease-out), color 160ms var(--ease-out);
@@ -166,21 +166,21 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
 }
 
 .filterChip {
   display: inline-flex;
   align-items: center;
-  gap: 0.38rem;
+  gap: 0.36rem;
   min-height: 36px;
-  padding: 0.32rem 0.8rem;
+  padding: 0.32rem 0.75rem;
   border-radius: var(--radius-full);
   background: transparent;
   border: 1px solid rgba(29, 29, 27, 0.18);
   color: #1d1d1b;
   font-family: "Catalog", sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out),
     border-color 160ms var(--ease-out);
@@ -197,8 +197,8 @@
 }
 
 .filterChipIcon {
-  width: 0.95rem;
-  height: 0.95rem;
+  width: 0.92rem;
+  height: 0.92rem;
   color: #e41f13;
   flex-shrink: 0;
 }
@@ -209,17 +209,17 @@
 
 /* ── Subcategories & 2-Column Editorial Menu Grid ───────────────────────── */
 .subCategoryBlock {
-  margin-bottom: 2.8rem;
+  margin-bottom: 2.6rem;
 }
 
 .subTitle {
   display: grid;
   gap: 0.5rem;
   font-family: "Catalog", sans-serif;
-  font-size: clamp(1.5rem, 1.25rem + 0.9vw, 1.95rem);
+  font-size: clamp(1.4rem, 1.2rem + 0.9vw, 1.95rem);
   font-weight: 900;
   color: #1d1d1b;
-  margin-bottom: 1.15rem;
+  margin-bottom: 1rem;
 }
 
 .subTitleUnderline {
@@ -263,12 +263,26 @@
 
 .menuItem {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
-  gap: 1.15rem;
+  gap: 0.85rem 1.1rem;
   padding-block: 0.85rem;
   border-bottom: 1px solid rgba(29, 29, 27, 0.11);
   transition: border-color 160ms var(--ease-out);
+}
+
+@media (max-width: 479px) {
+  .menuItemMulti {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  .menuItemMulti .menuItemPrices {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.55rem 1rem;
+  }
 }
 
 .menuItem:hover {
@@ -278,15 +292,16 @@
 .menuItemMain {
   display: grid;
   gap: 0.22rem;
+  min-width: 0;
 }
 
 .menuItemName {
   display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.42rem;
+  gap: 0.4rem;
   font-family: "Catalog", sans-serif;
-  font-size: 1.12rem;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.01em;
@@ -294,15 +309,15 @@
 }
 
 .menuItemDietaryIcon {
-  width: 1.08rem;
-  height: 1.08rem;
+  width: 1.05rem;
+  height: 1.05rem;
   color: #e41f13;
   flex-shrink: 0;
 }
 
 .menuItemDesc {
   font-family: "Catalog", sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.42;
   color: rgba(29, 29, 27, 0.74);
@@ -318,13 +333,13 @@
 .priceRow {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.5rem;
+  gap: 0.45rem;
   white-space: nowrap;
 }
 
 .priceSize {
   font-family: "Catalog", sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 400;
   font-style: italic;
   color: rgba(29, 29, 27, 0.68);
@@ -332,14 +347,14 @@
 
 .priceCurrency {
   font-family: "Catalog", sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
   color: rgba(29, 29, 27, 0.62);
 }
 
 .priceValue {
   font-family: "Catalog", sans-serif;
-  font-size: 1.08rem;
+  font-size: 1.06rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
@@ -362,29 +377,29 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.15rem;
+  gap: 0.95rem 1.15rem;
   list-style: none;
 }
 
 .legendItem {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.38rem;
   font-family: "Catalog", sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 700;
   color: #1d1d1b;
 }
 
 .legendIcon {
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 1.08rem;
+  height: 1.08rem;
   color: #e41f13;
 }
 
 .legendTax {
   font-family: "Catalog", sans-serif;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 400;
   color: rgba(29, 29, 27, 0.72);
 }
