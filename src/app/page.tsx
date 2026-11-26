@@ -1,23 +1,27 @@
 import { MinimalHeader } from "@/components/layout/MinimalHeader";
 import { InteractiveMenuSection } from "@/components/menu/InteractiveMenuSection";
 import { AmbientCanvasStage } from "@/components/scrolly/AmbientCanvasStage";
-import { ClosingConversion } from "@/components/scrolly/ClosingConversion";
-import { ProductSection } from "@/components/scrolly/ProductSection";
+import { HeroPizzaStage } from "@/components/scrolly/HeroPizzaStage";
 import { ScrollOrchestrator } from "@/components/scrolly/ScrollOrchestrator";
-import { DaNinoConversionSections } from "@/components/sections/DaNinoConversionSections";
-import { PRODUCTS_SHOWCASE } from "@/config/products";
+import { LocationSection } from "@/components/sections/LocationSection";
+import { ReviewsSection } from "@/components/sections/ReviewsSection";
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
-  name: "Pizzeria Da Nino am Eigerplatz Bern",
+  name: "Pizzeria da Nino",
   description:
-    "Pizzeria Da Nino am Eigerplatz in Bern (Belpstrasse 65). Restaurant & Take Away — Klein aber fein. Handwerkliche Pizze, Pizza-Special Numero Dodici, Aperitivo & Dolci della casa.",
+    "Pizzeria da Nino am Eigerplatz (Belpstrasse 65, 3007 Bern). Pizzería · Consumo en el lugar y Retiros en la puerta.",
   url: "https://www.pizzeriadanino.ch/",
   telephone: "+41 31 371 11 31",
   email: "info@pizzeriadanino.ch",
-  servesCuisine: ["Italian", "Pizza", "Aperitivo"],
-  priceRange: "CHF 5.00 - CHF 23.00",
+  servesCuisine: ["Italian", "Pizza", "Neapolitan Pizza"],
+  priceRange: "CHF 20-30",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "1649",
+  },
   address: {
     "@type": "PostalAddress",
     streetAddress: "Belpstrasse 65",
@@ -54,16 +58,10 @@ export default function HomePage() {
       <AmbientCanvasStage />
       <MinimalHeader />
       <main id="top" tabIndex={-1}>
-        {PRODUCTS_SHOWCASE.map((product, index) => (
-          <ProductSection
-            key={product.id}
-            product={product}
-            isOpeningHero={index === 0}
-          />
-        ))}
+        <HeroPizzaStage />
         <InteractiveMenuSection />
-        <DaNinoConversionSections />
-        <ClosingConversion />
+        <LocationSection />
+        <ReviewsSection />
       </main>
     </ScrollOrchestrator>
   );

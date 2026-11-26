@@ -1,24 +1,59 @@
 .menuSection {
   position: relative;
-  padding-block: clamp(4.5rem, 8vw, 7.5rem);
+  padding-block: clamp(4.5rem, 8vw, 7.25rem);
   color: #1d1d1b;
   background-color: #f4f4f4;
   border-top: 10px solid #e41f13;
   z-index: 2;
 }
 
-/* ── Pizza-Special Banner con el marco SVG original #special-wide ────────── */
+.menuHeader {
+  text-align: center;
+  max-width: 640px;
+  margin-inline: auto;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.eyebrow {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e41f13;
+}
+
+.title {
+  font-family: "Catalog", sans-serif;
+  font-size: clamp(2.5rem, 1.8rem + 2.8vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #1d1d1b;
+}
+
+.priceRangeNote {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.96rem;
+  font-weight: 400;
+  color: rgba(29, 29, 27, 0.75);
+}
+
+/* ── Pizza-Special Starburst Banner ─────────────────────────────────────── */
 .specialShowcase {
-  margin-bottom: clamp(3.5rem, 6vw, 5.5rem);
+  max-width: 920px;
+  margin-inline: auto;
+  margin-bottom: clamp(2.75rem, 5vw, 4.25rem);
 }
 
 .specialFrameWrap {
   position: relative;
-  min-height: clamp(290px, 36vw, 410px);
+  min-height: clamp(240px, 28vw, 340px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(2.5rem, 5vw, 4.25rem) clamp(1.5rem, 5vw, 4.5rem);
+  padding: clamp(2.25rem, 4.5vw, 3.5rem) clamp(1.5rem, 5vw, 4rem);
   text-align: center;
 }
 
@@ -34,15 +69,15 @@
 .specialInner {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  max-width: 640px;
   display: grid;
   justify-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
 }
 
 .specialKicker {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1rem + 1.1vw, 2rem);
+  font-family: "Catalog", sans-serif;
+  font-size: clamp(1.1rem, 0.95rem + 0.8vw, 1.6rem);
   font-weight: 900;
   color: #e41f13;
   letter-spacing: -0.02em;
@@ -53,9 +88,9 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.55rem;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 1.35rem + 2.8vw, 3.6rem);
+  gap: 0.5rem;
+  font-family: "Catalog", sans-serif;
+  font-size: clamp(1.85rem, 1.3rem + 2.4vw, 3.1rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.03em;
@@ -69,79 +104,28 @@
 }
 
 .specialDesc {
-  font-size: clamp(1rem, 0.9rem + 0.55vw, 1.45rem);
-  line-height: 1.38;
-  font-weight: 500;
-  color: #1d1d1b;
-  max-width: 600px;
-}
-
-.specialFooter {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 0.45rem;
+  font-family: "Catalog", sans-serif;
+  font-size: clamp(0.95rem, 0.88rem + 0.35vw, 1.2rem);
+  line-height: 1.4;
+  color: rgba(29, 29, 27, 0.85);
+  max-width: 540px;
 }
 
 .specialPrice {
-  font-size: clamp(1.1rem, 0.95rem + 0.5vw, 1.45rem);
-  font-weight: 800;
-  color: #1d1d1b;
-}
-
-.specialAddBtn {
-  min-height: 44px;
-  padding: 0.65rem 1.3rem;
-  border-radius: var(--radius-full);
-  background: #e41f13;
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.01em;
-  transition: transform 180ms var(--ease-out), background-color 180ms var(--ease-out);
-}
-
-.specialAddBtn:hover {
-  transform: translateY(-2px);
-  background: #c5190f;
-}
-
-/* ── Cabecera de la Take Away Karte ──────────────────────────────────────── */
-.menuHeader {
-  text-align: center;
-  max-width: 680px;
-  margin-inline: auto;
-  margin-bottom: 2.4rem;
-  display: grid;
-  gap: 0.65rem;
-}
-
-.eyebrow {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  margin-top: 0.25rem;
+  font-family: "Catalog", sans-serif;
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.55rem);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
   color: #e41f13;
 }
 
-.title {
-  font-size: clamp(2.2rem, 1.5rem + 2.8vw, 3.6rem);
-  font-weight: 900;
-  color: #1d1d1b;
-}
-
-.subtitle {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: rgba(29, 29, 27, 0.78);
-}
-
-/* ── Controles: Pestañas de Categoría + Filtros Dietéticos + Búsqueda ───── */
+/* ── Controls: Category Tabs + Dietary Chips ────────────────────────────── */
 .controlsBar {
   display: grid;
-  gap: 1rem;
+  justify-items: center;
+  gap: 0.95rem;
   margin-bottom: 2.75rem;
 }
 
@@ -149,18 +133,19 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
 .categoryTab {
   min-height: 44px;
-  padding: 0.6rem 1.15rem;
+  padding: 0.55rem 1.2rem;
   border-radius: var(--radius-full);
   background: #ffffff;
   border: 2px solid rgba(29, 29, 27, 0.14);
   color: #1d1d1b;
-  font-size: 0.88rem;
-  font-weight: 800;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
   transition: transform 160ms var(--ease-out), border-color 160ms var(--ease-out),
     background-color 160ms var(--ease-out), color 160ms var(--ease-out);
 }
@@ -176,22 +161,11 @@
   color: #ffffff;
 }
 
-.filterAndSearchRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.85rem;
-  padding: 0.85rem 1rem;
-  border-radius: 18px;
-  background: #ffffff;
-  border: 1px solid rgba(29, 29, 27, 0.12);
-}
-
 .dietaryFilters {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
 }
 
@@ -199,13 +173,14 @@
   display: inline-flex;
   align-items: center;
   gap: 0.38rem;
-  min-height: 40px;
-  padding: 0.38rem 0.8rem;
+  min-height: 36px;
+  padding: 0.32rem 0.8rem;
   border-radius: var(--radius-full);
-  background: #f4f4f4;
-  border: 1px solid rgba(29, 29, 27, 0.14);
+  background: transparent;
+  border: 1px solid rgba(29, 29, 27, 0.18);
   color: #1d1d1b;
-  font-size: 0.78rem;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.8rem;
   font-weight: 700;
   transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out),
     border-color 160ms var(--ease-out);
@@ -222,8 +197,8 @@
 }
 
 .filterChipIcon {
-  width: 1rem;
-  height: 1rem;
+  width: 0.95rem;
+  height: 0.95rem;
   color: #e41f13;
   flex-shrink: 0;
 }
@@ -232,53 +207,19 @@
   color: #ff6157;
 }
 
-.searchWrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex: 1 1 260px;
-  max-width: 440px;
-}
-
-.searchInput {
-  width: 100%;
-  min-height: 42px;
-  padding: 0.5rem 0.9rem;
-  border-radius: 12px;
-  background: #f4f4f4;
-  border: 1px solid rgba(29, 29, 27, 0.16);
-  color: #1d1d1b;
-  font-size: 0.86rem;
-}
-
-.searchInput:focus {
-  outline: 2px solid #e41f13;
-  outline-offset: 1px;
-}
-
-.resetFilterBtn {
-  min-height: 40px;
-  padding: 0.4rem 0.75rem;
-  border-radius: 10px;
-  background: rgba(228, 31, 19, 0.1);
-  color: #e41f13;
-  font-size: 0.72rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-/* ── Subcategorías y Grid de 2 Columnas con barras de 10px solid #E41F13 ── */
+/* ── Subcategories & 2-Column Editorial Menu Grid ───────────────────────── */
 .subCategoryBlock {
-  margin-bottom: 3rem;
+  margin-bottom: 2.8rem;
 }
 
 .subTitle {
   display: grid;
-  gap: 0.55rem;
-  font-size: clamp(1.55rem, 1.25rem + 1vw, 2rem);
+  gap: 0.5rem;
+  font-family: "Catalog", sans-serif;
+  font-size: clamp(1.5rem, 1.25rem + 0.9vw, 1.95rem);
   font-weight: 900;
   color: #1d1d1b;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.15rem;
 }
 
 .subTitleUnderline {
@@ -301,8 +242,8 @@
   display: grid;
   grid-template-columns: 1fr;
   column-gap: 2.5rem;
-  row-gap: 0.75rem;
-  padding-bottom: 1.75rem;
+  row-gap: 0;
+  padding-bottom: 1.25rem;
   border-bottom: 10px solid #e41f13;
 }
 
@@ -323,23 +264,20 @@
 .menuItem {
   display: grid;
   grid-template-columns: 1fr auto;
-  align-items: start;
-  gap: 1rem;
-  padding: 0.85rem 1rem;
-  border-radius: 14px;
-  background: #ffffff;
-  border: 1px solid rgba(29, 29, 27, 0.08);
-  transition: border-color 160ms var(--ease-out), transform 160ms var(--ease-out);
+  align-items: baseline;
+  gap: 1.15rem;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid rgba(29, 29, 27, 0.11);
+  transition: border-color 160ms var(--ease-out);
 }
 
 .menuItem:hover {
-  border-color: rgba(228, 31, 19, 0.45);
-  transform: translateY(-1px);
+  border-bottom-color: rgba(228, 31, 19, 0.55);
 }
 
 .menuItemMain {
   display: grid;
-  gap: 0.28rem;
+  gap: 0.22rem;
 }
 
 .menuItemName {
@@ -347,7 +285,8 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.42rem;
-  font-size: 1.15rem;
+  font-family: "Catalog", sans-serif;
+  font-size: 1.12rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.01em;
@@ -355,88 +294,67 @@
 }
 
 .menuItemDietaryIcon {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.08rem;
+  height: 1.08rem;
   color: #e41f13;
   flex-shrink: 0;
 }
 
 .menuItemDesc {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  color: rgba(29, 29, 27, 0.78);
+  font-family: "Catalog", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.42;
+  color: rgba(29, 29, 27, 0.74);
 }
 
+/* ── Prices strictly in "Catalog", sans-serif ───────────────────────────── */
 .menuItemPrices {
   display: grid;
-  gap: 0.4rem;
+  gap: 0.25rem;
   justify-items: end;
 }
 
 .priceRow {
   display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .priceSize {
-  font-size: 0.75rem;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  font-style: italic;
   color: rgba(29, 29, 27, 0.68);
 }
 
+.priceCurrency {
+  font-family: "Catalog", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(29, 29, 27, 0.62);
+}
+
 .priceValue {
-  font-size: 1rem;
-  font-weight: 800;
+  font-family: "Catalog", sans-serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
   color: #1d1d1b;
-  min-width: 46px;
   text-align: right;
 }
 
-.priceActions {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.28rem;
-}
-
-.qtyMiniBtn {
-  min-width: 34px;
-  min-height: 36px;
-  padding: 0.2rem 0.45rem;
-  border-radius: 8px;
-  background: #f4f4f4;
-  border: 1px solid rgba(29, 29, 27, 0.2);
-  color: #1d1d1b;
-  font-size: 0.85rem;
-  font-weight: 800;
-}
-
-.addBtn {
-  min-height: 36px;
-  padding: 0.32rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(228, 31, 19, 0.1);
-  border: 1px solid rgba(228, 31, 19, 0.3);
-  color: #e41f13;
-  font-size: 0.74rem;
-  font-weight: 800;
-  transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out);
-}
-
-.addBtn:hover,
-.addBtnActive {
-  background: #e41f13;
-  border-color: #e41f13;
-  color: #ffffff;
-}
-
-/* ── Leyenda Dietética Oficial Da Nino ──────────────────────────────────── */
+/* ── Official Dietary Legend ────────────────────────────────────────────── */
 .legendBar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding-top: 0.5rem;
+  padding-top: 0.4rem;
   color: #e41f13;
 }
 
@@ -451,112 +369,22 @@
 .legendItem {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.88rem;
+  gap: 0.4rem;
+  font-family: "Catalog", sans-serif;
+  font-size: 0.85rem;
   font-weight: 700;
+  color: #1d1d1b;
 }
 
 .legendIcon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.1rem;
+  height: 1.1rem;
   color: #e41f13;
 }
 
 .legendTax {
-  font-size: 0.9rem;
-  font-weight: 800;
-}
-
-/* ── Empty State ────────────────────────────────────────────────────────── */
-.emptyState {
-  text-align: center;
-  padding: 3rem 1.5rem;
-  border-radius: 18px;
-  background: #ffffff;
-  border: 1px solid rgba(29, 29, 27, 0.12);
-  margin-bottom: 2rem;
-  display: grid;
-  justify-items: center;
-  gap: 0.85rem;
-}
-
-.emptyResetBtn {
-  min-height: 42px;
-  padding: 0.55rem 1.1rem;
-  border-radius: var(--radius-full);
-  background: #e41f13;
-  color: #ffffff;
+  font-family: "Catalog", sans-serif;
   font-size: 0.84rem;
-  font-weight: 700;
-}
-
-/* ── Barra Integrada de Pedido Take-Away ────────────────────────────────── */
-.activeCartBanner {
-  margin-top: 2.25rem;
-  padding: 1rem 1.35rem;
-  border-radius: 20px;
-  background: #1d1d1b;
-  color: #ffffff;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  box-shadow: 0 18px 38px -14px rgba(29, 29, 27, 0.35);
-}
-
-.activeCartInfo {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-}
-
-.activeCartCount {
-  display: inline-grid;
-  place-items: center;
-  min-width: 42px;
-  height: 42px;
-  padding-inline: 0.55rem;
-  border-radius: 12px;
-  background: #e41f13;
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 800;
-}
-
-.activeCartTitle {
-  display: block;
-  font-size: 1rem;
-  font-weight: 800;
-}
-
-.activeCartTotal {
-  font-size: 0.84rem;
-  color: rgba(244, 244, 244, 0.82);
-}
-
-.activeCartActions {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.cartClearBtn {
-  min-height: 42px;
-  padding: 0.5rem 0.95rem;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-
-.cartCheckoutBtn {
-  min-height: 44px;
-  padding: 0.6rem 1.25rem;
-  border-radius: var(--radius-full);
-  background: #e41f13;
-  color: #ffffff;
-  font-size: 0.86rem;
-  font-weight: 800;
+  font-weight: 400;
+  color: rgba(29, 29, 27, 0.72);
 }

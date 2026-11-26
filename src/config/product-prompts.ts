@@ -1,224 +1,54 @@
 /**
- * ECC Skill (`ecc-product-prompts`) — Canonical Deconstructed Product Layer Prompts
- * for Pizzeria Da Nino am Eigerplatz (Belpstrasse 65, 3007 Bern — https://www.pizzeriadanino.ch/)
+ * Canonical ECC Product Layer Prompts (`ecc-product-prompts` skill)
+ * Pizzeria Da Nino am Eigerplatz (Belpstrasse 65, 3007 Bern)
  *
- * Geometry & Chroma-Key Contract:
- * - Camera perspective: 15-degree elevated side view ("seen from the side at eye level slightly elevated about 15 degrees")
- * - Framing: Perfectly centered, filling 80%–85% of the image width
- * - Background: Uniform solid magenta chroma-key (#FF00FF), zero background shadows, no plate, no props
- * - Post-processing: HSV chroma-key + purple-despill pipeline (`scripts/keyout.py`) -> 720px transparent .webp
+ * Single Master Pizza Scrollytelling Asset Set:
+ * - Perspective: 15–18 degree elevated side view (wide elliptical layers ~2.1:1)
+ * - Framing: Centered, filling 75%–85% of image width
+ * - Isolation: Uniform solid magenta background (#FF00FF), HSV chroma-key + warm crust despill
  */
 
-export interface EccLayerPromptSpec {
+export interface EccProductPromptEntry {
   layerId: string;
-  productSlug: 'dodici' | 'eigerplatz' | 'dolce' | 'lasagne' | 'caprese';
-  outputAssetPath: string;
-  dishTitle: string;
-  layerNameDe: string;
-  layerNameEs: string;
-  aspectRatio: '1:1';
-  widthFillPercent: 80 | 85;
+  assetPath: string;
   prompt: string;
-  promptV2?: string;
 }
 
-export const DA_NINO_ECC_PRODUCT_PROMPTS: EccLayerPromptSpec[] = [
-  // ============================================================================
-  // 01 · NUMERO DODICI (#12) — Pizza Special (CHF 19.00)
-  // Kürbiscreme, Mozzarella, Shiitake Pilze, Karamellisierte Zwiebeln, Sbrinz, Kürbiskerne
-  // ============================================================================
+export const DA_NINO_ECC_PRODUCT_PROMPTS: EccProductPromptEntry[] = [
   {
-    layerId: 'dodici-01-sbrinz-seeds',
-    productSlug: 'dodici',
-    outputAssetPath: '/assets/dodici/01-sbrinz-seeds.webp',
-    dishTitle: '01 · Numero Dodici (Pizza Special #12)',
-    layerNameDe: 'Geröstete Kürbiskerne & Sbrinz AOP Splitter',
-    layerNameEs: 'Semillas de Calabaza Tostadas & Lascas de Sbrinz AOP',
-    aspectRatio: '1:1',
-    widthFillPercent: 80,
+    layerId: "assembled-master",
+    assetPath: "/assets/pizza/00-assembled.webp",
     prompt:
-      'Photorealistic professional food photography of a single scattered floating layer of toasted dark-green Styrian pumpkin seeds and flaky golden-ivory aged Swiss Sbrinz cheese shavings with delicate drops of dark aged balsamic reduction, arranged as the top finishing layer of an exploded artisan pizza, seen from the side at eye level slightly elevated (about 15 degrees), perfectly centered, filling 80% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-    promptV2:
-      'Photorealistic professional food photography of a single wide elliptical crown of roasted green pumpkin seeds and thin crystalline shavings of aged Swiss Sbrinz hard cheese, intact crisp silhouettes with a flat clean bottom plane (no plate, no stray crumbs below), seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
+      "Photorealistic professional food photography of a single whole freshly baked wood-fired Neapolitan Quattro Stagioni artisan pizza with a puffy golden-brown leopard-charred cornicione crust rim, crimson San Marzano tomato sauce, bubbling melted white Fior di Latte mozzarella, roasted mushrooms, artichokes, black olives, spicy salami, and fresh green basil leaves on top, intact clean flat bottom crust edge, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.",
   },
   {
-    layerId: 'dodici-02-caramel-onions',
-    productSlug: 'dodici',
-    outputAssetPath: '/assets/dodici/02-caramel-onions.webp',
-    dishTitle: '01 · Numero Dodici (Pizza Special #12)',
-    layerNameDe: 'Karamellisierte Rote Zwiebeln & Shiitake Pilze',
-    layerNameEs: 'Cebolla Roja Caramelizada al Balsámico & Setas Shiitake',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
+    layerId: "basil",
+    assetPath: "/assets/pizza/01-basil.webp",
     prompt:
-      'Photorealistic professional food photography of a single round layer of glossy balsamic-caramelized ruby red onion rings and thick seared umami brown Shiitake mushroom slices with golden roasted edges, arranged as one flat wide elliptical layer of an exploded artisan pizza, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
+      "Photorealistic professional food photography of 8 individual fresh emerald-green Genovese basil leaves spaced apart in a wide oval ring with clear magenta background visible between each leaf, glistening with tiny golden olive oil droplets, floating on a single horizontal plane as the top garnish layer of an exploded Neapolitan pizza, seen from the side at eye level slightly elevated about 18 degrees, perfectly centered, filling 75% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no dough, no props, soft studio lighting, crisp edges, high detail.",
   },
   {
-    layerId: 'dodici-03-shiitake-cheese',
-    productSlug: 'dodici',
-    outputAssetPath: '/assets/dodici/03-shiitake-cheese.webp',
-    dishTitle: '01 · Numero Dodici (Pizza Special #12)',
-    layerNameDe: 'Geschmolzener Fior di Latte & Schweizer Sbrinz',
-    layerNameEs: 'Fior di Latte Fundida & Reserva de Sbrinz Suizo',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
+    layerId: "toppings",
+    assetPath: "/assets/pizza/02-toppings.webp",
     prompt:
-      'Photorealistic professional food photography of a single melted golden-ivory layer of artisan Fior di Latte mozzarella blended with aged Swiss Sbrinz cheese, gently bubbling and draping slightly at the outer edges with warm golden-brown oven blisters, as one flat layer of an exploded pizza, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
+      "Photorealistic professional food photography of separated gourmet Quattro Stagioni pizza toppings arranged in a wide flat oval pattern with clear solid magenta background (#FF00FF) visible between every piece: roasted golden-brown cremini mushroom slices on the left, marinated pale-gold artichoke quarters at top, glossy black olives on the right, and crispy terracotta-red Italian salami rounds at front, all resting on one invisible horizontal plane with no crust and no cheese underneath, seen from the side at eye level slightly elevated about 18 degrees, perfectly centered, filling 78% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.",
   },
   {
-    layerId: 'dodici-04-pumpkin-cream',
-    productSlug: 'dodici',
-    outputAssetPath: '/assets/dodici/04-pumpkin-cream.webp',
-    dishTitle: '01 · Numero Dodici (Pizza Special #12)',
-    layerNameDe: 'Hausgemachte Geröstete Kürbiscreme',
-    layerNameEs: 'Crema Aterciopelada de Calabaza Hokkaido Asada',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
+    layerId: "mozzarella",
+    assetPath: "/assets/pizza/03-mozzarella.webp",
     prompt:
-      'Photorealistic professional food photography of a thin round wavy layer of glossy velvety golden-orange roasted Hokkaido pumpkin cream sauce dripping slightly at the edges with subtle roasted sage and black pepper flecks, like the sauce layer of an exploded artisan pizza, seen from the side at eye level slightly elevated about 15 degrees so it appears as a flat wide ellipse, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
+      "Photorealistic professional food photography of a single round layer of creamy melted milky-white Fior di Latte and Buffalo mozzarella cheese with warm golden-brown wood-fired oven blisters and soft rounded edges (no long hanging drips), seen from the side at eye level slightly elevated about 15 degrees so it appears as a flat wide ellipse, perfectly centered, filling 84% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.",
   },
   {
-    layerId: 'dodici-05-crust',
-    productSlug: 'dodici',
-    outputAssetPath: '/assets/dodici/05-crust.webp',
-    dishTitle: '01 · Numero Dodici (Pizza Special #12)',
-    layerNameDe: '72h Steinofen-Pizzateig (Belpstrasse 65)',
-    layerNameEs: 'Masa Napolitana de Horno de Piedra (Fermentación 72h)',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
+    layerId: "pelati",
+    assetPath: "/assets/pizza/04-pelati.webp",
     prompt:
-      'Photorealistic professional food photography of a single artisan wood-fired Neapolitan pizza crust base, 72-hour fermented dough with a puffy golden-brown leopard-spotted charred cornicione rim, dusted with fine semolina flour and a clean flat bottom surface, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-  },
-
-  // ============================================================================
-  // 02 · PIZZA EIGERPLATZ — Die Haus-Spezialität (CHF 22.00)
-  // Pelati, Mozzarella, Pilzcreme, Coppa, Rohschinken, Stracciatella, Basilikum
-  // ============================================================================
-  {
-    layerId: 'eigerplatz-01-basil-oil',
-    productSlug: 'eigerplatz',
-    outputAssetPath: '/assets/eigerplatz/01-basil-oil.webp',
-    dishTitle: '02 · Pizza Eigerplatz (Signature Special)',
-    layerNameDe: 'Frischer Genoveser Basilikum & Olivenöl Extra Vergine',
-    layerNameEs: 'Hojas de Albahaca Genovesa Fresca & Aceite de Oliva Virgen Extra',
-    aspectRatio: '1:1',
-    widthFillPercent: 80,
-    prompt:
-      'Photorealistic professional food photography of a single floating elliptical crown of fresh emerald-green Genovese basil leaves and glossy droplets of cold-pressed Italian extra virgin olive oil, arranged as the top finishing layer of an exploded Neapolitan pizza, seen from the side at eye level slightly elevated (about 15 degrees), perfectly centered, filling 80% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-    promptV2:
-      'Photorealistic professional food photography of a single wide elliptical arrangement of turgid fresh green basil leaves with visible leaf veins and golden olive oil droplets, intact crisp leaves with no stems sticking below the horizontal plane, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
+      "Photorealistic professional food photography of a single thin round swirled layer of rich crimson-scarlet crushed San Marzano Pelati tomato pizza sauce with tiny dried oregano flecks and glossy olive oil sheen (clean flat bottom edge, no drips), seen from the side at eye level slightly elevated about 15 degrees so it appears as a flat wide ellipse, perfectly centered, filling 84% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.",
   },
   {
-    layerId: 'eigerplatz-02-coppa-prosciutto',
-    productSlug: 'eigerplatz',
-    outputAssetPath: '/assets/eigerplatz/02-coppa-prosciutto.webp',
-    dishTitle: '02 · Pizza Eigerplatz (Signature Special)',
-    layerNameDe: 'Italienische Coppa & Luftgetrockneter Rohschinken',
-    layerNameEs: 'Coppa Italiana Curada & Rohschinken (Prosciutto Crudo)',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
+    layerId: "crust",
+    assetPath: "/assets/pizza/05-crust.webp",
     prompt:
-      'Photorealistic professional food photography of a single round layer of thin marbled ruby-red cured Italian Coppa slices and delicate folded ribbons of air-dried Prosciutto Crudo (Rohschinken) with warm crispy oven-kissed edges, arranged as one flat wide elliptical layer of an exploded Neapolitan pizza, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-  },
-  {
-    layerId: 'eigerplatz-03-stracciatella',
-    productSlug: 'eigerplatz',
-    outputAssetPath: '/assets/eigerplatz/03-stracciatella.webp',
-    dishTitle: '02 · Pizza Eigerplatz (Signature Special)',
-    layerNameDe: 'Cremige Puglieser Stracciatella & Fior di Latte',
-    layerNameEs: 'Stracciatella Cremosa de Puglia & Fior di Latte Fundida',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
-    prompt:
-      'Photorealistic professional food photography of a single round layer of glossy milky-white Pugliese Stracciatella cheese curds and melted Fior di Latte mozzarella with delicate golden wood-fired blister spots, arranged as one flat layer of an exploded Neapolitan pizza, seen from the side at eye level slightly elevated about 15 degrees so it appears as a flat wide ellipse, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-  },
-  {
-    layerId: 'eigerplatz-04-pelati-pilzcreme',
-    productSlug: 'eigerplatz',
-    outputAssetPath: '/assets/eigerplatz/04-pelati-pilzcreme.webp',
-    dishTitle: '02 · Pizza Eigerplatz (Signature Special)',
-    layerNameDe: 'San Marzano Pelati & Hausgemachte Steinpilzcreme',
-    layerNameEs: 'Tomates Pelati San Marzano D.O.P. & Crema de Boletus',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
-    prompt:
-      'Photorealistic professional food photography of a single thin round swirled layer of crushed crimson San Marzano Pelati tomato sauce marbled with rich earthy wild porcini mushroom cream (Pilzcreme), seen from the side at eye level slightly elevated about 15 degrees so it appears as a flat wide ellipse, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-  },
-  {
-    layerId: 'eigerplatz-05-crust',
-    productSlug: 'eigerplatz',
-    outputAssetPath: '/assets/eigerplatz/05-crust.webp',
-    dishTitle: '02 · Pizza Eigerplatz (Signature Special)',
-    layerNameDe: 'Traditioneller Da Nino Steinofen-Boden',
-    layerNameEs: 'Base Napolitana Artesana al Horno de Piedra',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
-    prompt:
-      'Photorealistic professional food photography of a single authentic wood-fired Neapolitan pizza dough base with an airy blistered golden-brown and dark leopard-charred cornicione crust rim and a thin tender center, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-  },
-
-  // ============================================================================
-  // 03 · PIZZA ALLA NUTELLA — Dolci aus dem Steinofen (Klein CHF 5.00 / Gross CHF 20.00)
-  // Mit Mascarpone, Haselnüssen & Pistazien
-  // ============================================================================
-  {
-    layerId: 'dolce-01-pistachios',
-    productSlug: 'dolce',
-    outputAssetPath: '/assets/dolce/01-pistachios.webp',
-    dishTitle: '03 · Pizza alla Nutella (Dolce Forno)',
-    layerNameDe: 'Gehackte Bronte-Pistazien & Puderzucker-Krone',
-    layerNameEs: 'Corona de Pistachos Verdes de Bronte & Azúcar Glas',
-    aspectRatio: '1:1',
-    widthFillPercent: 80,
-    prompt:
-      'Photorealistic professional food photography of a single top crown of golden wood-fired sweet brioche-pizza dough dusted with crushed emerald-green Bronte pistachios, toasted sesame-hazelnut seeds and fine white powdered icing sugar, intact low wide dome with a flat clean bottom edge (no bite, no crumb visible), seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-  },
-  {
-    layerId: 'dolce-02-hazelnut-crumble',
-    productSlug: 'dolce',
-    outputAssetPath: '/assets/dolce/02-hazelnut-crumble.webp',
-    dishTitle: '03 · Pizza alla Nutella (Dolce Forno)',
-    layerNameDe: 'Geröstete Piemonteser Haselnüsse & Krokant',
-    layerNameEs: 'Avellanas Tostadas del Piamonte & Crocante Gianduja',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
-    prompt:
-      'Photorealistic professional food photography of a single round layer of crunchy roasted Piedmont hazelnut halves and caramelized golden-brown gianduja praline chunks arranged in a wide flat ring, as one layer of an exploded dessert pizza, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-  },
-  {
-    layerId: 'dolce-03-mascarpone-crema',
-    productSlug: 'dolce',
-    outputAssetPath: '/assets/dolce/03-mascarpone-crema.webp',
-    dishTitle: '03 · Pizza alla Nutella (Dolce Forno)',
-    layerNameDe: 'Samtiger Italienischer Mascarpone-Schmelz',
-    layerNameEs: 'Crema Batida de Mascarpone Italiano Fresco',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
-    prompt:
-      'Photorealistic professional food photography of a single wide draping layer of velvety whipped ivory-white Italian Mascarpone cream softening over warm pastry and folding gently at the corners, as one flat layer of an exploded dessert pizza, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-  },
-  {
-    layerId: 'dolce-04-nutella-vegetale',
-    productSlug: 'dolce',
-    outputAssetPath: '/assets/dolce/04-nutella-vegetale.webp',
-    dishTitle: '03 · Pizza alla Nutella (Dolce Forno)',
-    layerNameDe: 'Warme Nutella Haselnuss-Kakao-Ganache',
-    layerNameEs: 'Ganache Templada de Nutella, Cacao & Avellanas',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
-    prompt:
-      'Photorealistic professional food photography of a thin round wavy layer of glossy rich dark chocolate-hazelnut Nutella ganache dripping slightly in thick ribbons at the edges, like the chocolate layer of an exploded dessert pizza, seen from the side at eye level slightly elevated about 15 degrees so it appears as a flat wide ellipse, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
-  },
-  {
-    layerId: 'dolce-05-sweet-crust',
-    productSlug: 'dolce',
-    outputAssetPath: '/assets/dolce/05-sweet-crust.webp',
-    dishTitle: '03 · Pizza alla Nutella (Dolce Forno)',
-    layerNameDe: 'Goldbrauner Süsser Steinofen-Teigboden',
-    layerNameEs: 'Base Dulce Dorada al Horno de Piedra con Mantequilla',
-    aspectRatio: '1:1',
-    widthFillPercent: 85,
-    prompt:
-      'Photorealistic professional food photography of a single bottom base of a golden sweet wood-fired brioche-pizza dough, butter-toasted flat top surface with caramelized golden sides, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.',
+      "Photorealistic professional food photography of a single authentic wood-fired Neapolitan pizza dough crust base, 72-hour fermented dough with an airy puffy golden-brown and dark leopard-charred cornicione rim, fine semolina dusting, and an intact clean flat bottom edge, seen from the side at eye level slightly elevated about 15 degrees, perfectly centered, filling 85% of the image width, isolated on a perfectly flat uniform solid magenta background (#FF00FF), no shadow on the background, no plate, no props, soft studio lighting, crisp edges, high detail.",
   },
 ];
