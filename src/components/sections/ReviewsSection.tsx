@@ -35,12 +35,12 @@ export function ReviewsSection() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.65,
-          stagger: 0.08,
+          duration: 0.6,
+          stagger: 0.07,
           ease: "power3.out",
           scrollTrigger: {
             trigger: section,
-            start: "top 80%",
+            start: "top 82%",
             once: true,
           },
         },
@@ -68,7 +68,7 @@ export function ReviewsSection() {
                 {t.ratingScore}
               </h2>
               <div className={styles.starsMeta}>
-                <div className={styles.stars} aria-label="4.8 out of 5 stars">
+                <div className={styles.stars} aria-label={t.starsAria}>
                   ★★★★★
                 </div>
                 <strong className={styles.totalCount}>{t.totalCount}</strong>
@@ -113,7 +113,7 @@ export function ReviewsSection() {
           </div>
         </div>
 
-        {/* ── 3 Real Local Guide Reviews ── */}
+        {/* ── 3 Real Local Guide Reviews (Fully Translated per Locale) ── */}
         <div className={styles.reviewsGrid}>
           {t.items.map((rev, idx) => (
             <blockquote
@@ -150,7 +150,12 @@ export function ReviewsSection() {
           </div>
 
           <div className={styles.footerLinks}>
-            <a id="footer-web-link" href="http://pizzeriadanino.ch/" target="_blank" rel="noopener noreferrer">
+            <a
+              id="footer-web-link"
+              href="https://www.pizzeriadanino.ch/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               pizzeriadanino.ch
             </a>
             <span>·</span>
@@ -164,7 +169,7 @@ export function ReviewsSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Datenschutz
+              {t.privacyLabel}
             </a>
             <span>·</span>
             <a
@@ -173,7 +178,7 @@ export function ReviewsSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Impressum
+              {t.imprintLabel}
             </a>
           </div>
         </footer>

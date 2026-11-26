@@ -8,12 +8,6 @@ import { setLenis, setScrollMetrics } from "@/lib/lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Official Pizzeria Da Nino am Eigerplatz (Bern) Color System:
- *   - "red":    #D81E12 (Da Nino Red #E41F13 WCAG-calibrated for crisp #FFFFFF logo & type)
- *   - "dark":   #141413 (Wood-fired stone oven charcoal #1D1D1B)
- *   - "pastel": #F4F4F4 (Swiss editorial menu paper with #1D1D1B ink & #E41F13 rules)
- */
 export const PALETTES = {
   red: {
     "--canvas-bg": "#d81e12",
@@ -62,13 +56,17 @@ function scrollAnchorOf(el: HTMLElement) {
 
 export function ScrollOrchestrator({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    // Prevent iOS Safari / Android Chrome address bar show/hide from causing mid-scroll pin jumps
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
     const lenis = new Lenis({
-      duration: prefersReducedMotion ? 0 : 1.12,
+      duration: prefersReducedMotion ? 0 : 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: !prefersReducedMotion,
-      touchMultiplier: 1.35,
+      smoothWheel: !prefersReducedMotion && !isCoarsePointer,
+      syncTouch: false,
     });
     setLenis(lenis);
 
@@ -87,7 +85,6 @@ export function ScrollOrchestrator({ children }: { children: React.ReactNode }) 
     const root = document.documentElement;
 
     const ctx = gsap.context(() => {
-      // Initial opening state is always Da Nino Red (#D81E12) behind the centered Hero Logo
       gsap.set(root, PALETTES.red);
 
       const sections = gsap.utils.toArray<HTMLElement>("[data-palette]");
@@ -107,7 +104,7 @@ export function ScrollOrchestrator({ children }: { children: React.ReactNode }) 
               trigger: scrollAnchorOf(sections[i]),
               start: "top 88%",
               end: "top 24%",
-              scrub: 0.55,
+              scrub: 0.5,
             },
           },
         );

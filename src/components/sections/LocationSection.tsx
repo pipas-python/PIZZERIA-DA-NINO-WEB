@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DICTIONARIES, useLocale } from "@/lib/i18n";
@@ -8,25 +8,33 @@ import styles from "./LocationSection.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PEAK_BARS = [
-  { label: "6a. m.", h: 8 },
-  { label: "", h: 12 },
-  { label: "9a. m.", h: 18 },
-  { label: "", h: 34 },
-  { label: "12p. m.", h: 78 },
-  { label: "", h: 64 },
-  { label: "3p. m.", h: 26 },
-  { label: "", h: 38 },
-  { label: "6p. m.", h: 88, active: true },
-  { label: "", h: 96 },
-  { label: "9p. m.", h: 68 },
-  { label: "", h: 32 },
-];
+const PEAK_HEIGHTS = [8, 12, 18, 34, 78, 64, 26, 38, 88, 96, 68, 32];
 
 export function LocationSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [locale] = useLocale();
   const t = DICTIONARIES[locale].locationSection;
+  const [mapTouchActive, setMapTouchActive] = useState(false);
+  const [mapMounted, setMapMounted] = useState(false);
+
+  const satelliteEmbedUrl = `https://www.google.com/maps/embed?origin=mfe&pb=!1m4!2m1!1sPizzeria+da+Nino,+Belpstrasse+65,+3007+Bern!5e1!6i18!3m1!1s${locale}!5m1!1s${locale}`;
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || mapMounted) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setMapMounted(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "500px 0px" },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [mapMounted]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -37,16 +45,16 @@ export function LocationSection() {
       const items = gsap.utils.toArray<HTMLElement>("[data-loc-reveal]", section);
       gsap.fromTo(
         items,
-        { opacity: 0, y: 26 },
+        { opacity: 0, y: 24 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.65,
-          stagger: 0.08,
+          duration: 0.6,
+          stagger: 0.07,
           ease: "power3.out",
           scrollTrigger: {
             trigger: section,
-            start: "top 80%",
+            start: "top 82%",
             once: true,
           },
         },
@@ -82,7 +90,7 @@ export function LocationSection() {
             <span className={styles.statusCloses}>{t.closesAt}</span>
           </div>
 
-          <ul data-loc-reveal className={styles.servicesRow} aria-label="Services">
+          <ul data-loc-reveal className={styles.servicesRow} aria-label={t.servicesAria}>
             {t.services.map((srv) => (
               <li key={srv} className={styles.servicePill}>
                 {srv}
@@ -92,7 +100,7 @@ export function LocationSection() {
 
           <div data-loc-reveal className={styles.detailsGrid}>
             <div className={styles.detailBlock}>
-              <span className={styles.detailLabel}>Pizzeria da Nino</span>
+              <span className={styles.detailLabel}>{t.addressLabel}</span>
               <p className={styles.detailPrimary}>
                 {t.addressStreet}, {t.addressCity}
               </p>
@@ -134,79 +142,67 @@ export function LocationSection() {
           </div>
         </div>
 
-        {/* ── Right Column: Architectural Eigerplatz Bern Map + Peak Hours ── */}
+        {/* ── Right Column: Live Google Maps Satellite View + Peak Hours ── */}
         <div data-loc-reveal className={styles.visualCol}>
-          <a
-            id="location-map-card"
-            href="https://maps.app.goo.gl/Jo1shiBUqdx8UY939"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.mapCard}
-            aria-label={`${t.directionsCta} — Belpstrasse 65, 3007 Bern`}
-          >
-            <svg
-              viewBox="0 0 560 320"
-              className={styles.mapSvg}
-              aria-hidden="true"
-            >
-              <rect width="560" height="320" fill="#1b1b19" />
-              {/* Subtle Bern street arteries around Eigerplatz & Belpstrasse */}
-              <path
-                d="M-20 238 L580 96 M118 -20 L254 340 M392 -20 L312 340 M-20 84 L580 198"
-                stroke="rgba(244,244,244,0.1)"
-                strokeWidth="12"
-                fill="none"
-              />
-              <path
-                d="M-20 168 L580 142"
-                stroke="rgba(228,31,19,0.34)"
-                strokeWidth="16"
-                fill="none"
-              />
-              <path
-                d="M-20 168 L580 142"
-                stroke="rgba(255,255,255,0.22)"
-                strokeWidth="1.5"
-                strokeDasharray="6 6"
-                fill="none"
-              />
-              <text
-                x="44"
-                y="156"
-                fill="rgba(244,244,244,0.5)"
-                fontSize="11"
-                fontWeight="700"
-                letterSpacing="2"
-              >
-                BELPSTRASSE
-              </text>
-              <text
-                x="356"
-                y="78"
-                fill="rgba(244,244,244,0.38)"
-                fontSize="10"
-                fontWeight="700"
-                letterSpacing="2"
-              >
-                EIGERPLATZ · 3007 BERN
-              </text>
+          <div className={styles.mapCard} data-lenis-prevent>
+            <div className={styles.mapViewport}>
+              <span className={styles.satelliteBadge}>{t.mapSatelliteBadge}</span>
 
-              {/* Da Nino Pin */}
-              <circle cx="272" cy="155" r="34" fill="rgba(228,31,19,0.2)" />
-              <circle cx="272" cy="155" r="18" fill="#e41f13" />
-              <circle cx="272" cy="155" r="6" fill="#ffffff" />
-            </svg>
+              {mapMounted && (
+                <iframe
+                  key={locale}
+                  id="danino-satellite-map"
+                  src={satelliteEmbedUrl}
+                  title={t.mapIframeTitle}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                  className={`${styles.mapIframe} ${
+                    mapTouchActive ? styles.mapIframeTouchUnlocked : ""
+                  }`}
+                />
+              )}
+
+              {/* Mobile touch scroll guard: prevents getting stuck inside the map while scrolling vertically */}
+              {!mapTouchActive ? (
+                <button
+                  id="map-touch-unlock-btn"
+                  type="button"
+                  className={styles.mobileMapShield}
+                  onClick={() => setMapTouchActive(true)}
+                >
+                  <span className={styles.mobileMapPill}>{t.mapUnlockTouch}</span>
+                </button>
+              ) : (
+                <button
+                  id="map-touch-lock-btn"
+                  type="button"
+                  className={styles.mobileMapLockBtn}
+                  onClick={() => setMapTouchActive(false)}
+                >
+                  {t.mapLockTouch} ✕
+                </button>
+              )}
+            </div>
 
             <div className={styles.mapOverlayBar}>
               <div>
                 <strong className={styles.mapPinTitle}>Pizzeria da Nino</strong>
-                <span className={styles.mapPinSub}>Belpstrasse 65 · WCRJ+RH Bern</span>
+                <span className={styles.mapPinSub}>
+                  {t.addressStreet} · {t.plusCode}
+                </span>
               </div>
-              <span className={styles.mapOpenArrow} aria-hidden="true">
-                Maps ↗
-              </span>
+              <a
+                id="location-open-gmaps-link"
+                href="https://maps.app.goo.gl/Jo1shiBUqdx8UY939"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.mapOpenArrow}
+              >
+                {t.mapOpenExternal}
+              </a>
             </div>
-          </a>
+          </div>
 
           <div className={styles.peakCard}>
             <div className={styles.peakHeader}>
@@ -215,18 +211,23 @@ export function LocationSection() {
             </div>
 
             <div className={styles.peakChart} aria-hidden="true">
-              {PEAK_BARS.map((bar, idx) => (
-                <div key={idx} className={styles.peakCol}>
-                  <div className={styles.peakBarTrack}>
-                    <span
-                      className={`${styles.peakBarFill} ${
-                        bar.active ? styles.peakBarActive : ""
-                      }`}
-                      style={{ height: `${bar.h}%` }}
-                    />
-                  </div>
-                  <span className={styles.peakTick}>{bar.label}</span>
+              {PEAK_HEIGHTS.map((h, idx) => (
+                <div key={idx} className={styles.peakBarTrack}>
+                  <span
+                    className={`${styles.peakBarFill} ${
+                      idx === 8 ? styles.peakBarActive : ""
+                    }`}
+                    style={{ height: `${h}%` }}
+                  />
                 </div>
+              ))}
+            </div>
+
+            <div className={styles.peakTicksRow} aria-hidden="true">
+              {t.peakTicks.map((tick) => (
+                <span key={tick} className={styles.peakTick}>
+                  {tick}
+                </span>
               ))}
             </div>
           </div>

@@ -79,13 +79,20 @@ export function MinimalHeader() {
       rafId = window.requestAnimationFrame(updateProgressAndActive);
     };
 
+    const onResize = () => {
+      if (window.innerWidth >= 900) {
+        setMenuOpen(false);
+      }
+      onScroll();
+    };
+
     updateProgressAndActive();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
     return () => {
       if (rafId !== 0) window.cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -93,8 +100,10 @@ export function MinimalHeader() {
     const lenis = getLenis();
     if (menuOpen) {
       lenis?.stop();
+      document.body.style.overflow = "hidden";
     } else {
       lenis?.start();
+      document.body.style.overflow = "";
     }
 
     if (!menuOpen) return;
@@ -113,6 +122,7 @@ export function MinimalHeader() {
     window.addEventListener("keydown", onKeyDown);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
       lenis?.start();
     };
   }, [menuOpen]);
@@ -132,7 +142,7 @@ export function MinimalHeader() {
 
   return (
     <header
-      className={`${styles.header} ${brandVisible ? styles.headerScrolled : styles.headerOpening}`}
+      className={`${styles.header} ${brandVisible || menuOpen ? styles.headerScrolled : styles.headerOpening}`}
     >
       <div className={styles.bar} aria-hidden="true">
         <span ref={barFillRef} className={styles.barFill} />
